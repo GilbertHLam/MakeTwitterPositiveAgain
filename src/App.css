@@ -1,4 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Raleway:900&display=swap');
 body {
   background-color: lightblue;
+
+  -webkit-font-smoothing: antialiased;
 }
