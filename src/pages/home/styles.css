@@ -17,6 +17,7 @@ h1 {
     margin-bottom: 2rem;
     color: #1ea1f1;
     line-height: 35px;
+    letter-spacing: 3px;
 }
 
 .white {
@@ -159,8 +160,4 @@ h1 span:nth-child(2) { animation-delay: .9s; }
 
   .button {
     margin: auto;
-  }
-
-  h2 {
-
   }

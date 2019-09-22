@@ -14,7 +14,7 @@ const LoginButton: React.FC = () => {
   return (
     <div className="loginButton fade-in">
       
-       <a href="https://twitter.com/minimalmonkey" className="icon-button twitter">
+       <a href="http://localhost:3001/login" className="icon-button twitter">
            <i className="icon-twitter" >
            {element}
            </i>
