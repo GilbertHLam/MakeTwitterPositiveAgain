@@ -1,16 +1,28 @@
 import React, { useState, useEffect } from "react";
-import { getTweets, getAccessToken } from "../../utils/apiCalls";
-import "./styles.css"; 
+import { getProfile } from "../../utils/apiCalls";
+import "./styles.css";
 
 interface DashboardProps extends React.HTMLProps<HTMLDivElement> {
-    location: any;
+  location: any;
 }
 
-const Dashboard: React.FC<DashboardProps> = (props: {location: any}) => {
-   console.log(props.location.state);
+const Dashboard: React.FC<DashboardProps> = (props: { location: any }) => {
+  console.log(props.location.state);
+
+  const req = getProfile(
+    props.location.state.oauth_token,
+    props.location.state.oauth_token_secret
+  ).then(response => {
+    return response.json();
+  }).then((data:any) => {
+     console.log(data);
+}).catch(err => {
+    console.log(err);
+  });
+
   return (
     <div className="">
-        {props.location.state.screen_name}
+      {props.location.state.screen_name}
     </div>
   );
 };

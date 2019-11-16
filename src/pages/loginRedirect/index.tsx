@@ -11,7 +11,7 @@ const LoginRedirect: React.FC = () => {
     const [userKeys, setUserKeys] = useState({});
 
     useEffect(() => {
-        if(!access) {
+        if(!access && verifier && token) {
             getAccessToken(verifier, token)
             .then((response: any) => {
                 return response.json();
@@ -23,15 +23,13 @@ const LoginRedirect: React.FC = () => {
             });
         }   
       });
-
-    
     
     return (
         <>
-        { access ? <Redirect to={{
-            pathname: "/dashboard",
-            state: {...userKeys}
-        }}/>:"Logging in" }
+            { access ? <Redirect to={{
+                pathname: "/dashboard",
+                state: {...userKeys}
+            }}/>:"Logging in" }
         </>
         
     );

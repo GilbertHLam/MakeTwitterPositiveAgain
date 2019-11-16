@@ -1,5 +1,7 @@
+import apiBaseUrl from "./apiBaseUrl";
+
 const signIn = () => {
-    fetch("http://localhost:3000/signIn", {
+    fetch(apiBaseUrl + "signIn", {
         method: "GET",
         headers: {
           Accept: "application/json",
@@ -10,30 +12,34 @@ const signIn = () => {
       })
 }
 
-const getTweets = (oauthToken: String) => {
-    fetch("http://localhost:3001/userData", {
+const getProfile = (oauthToken: String,oauthTokenSecret: String) => {
+    return fetch(apiBaseUrl + "userProfile", {
         method: "POST",
         headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
+          Origin: "https://twitter.gilbertlam.me"
         },
-        body: `oauth_token=${oauthToken}`,
-      }).then((response: any) => {
-        console.log(response);
-      })
+        body: JSON.stringify({
+          oauth_token_secret: oauthTokenSecret,
+          oauth_token: oauthToken
+        }),
+      });
 }
 
-const getAccessToken = (oauthVerifier: String | null, oauthToken: String | null) => {
-  return fetch("http://localhost:3001/getAccessToken", {
+const getAccessToken = (oauthVerifier: String , oauthToken: String) => {
+  return fetch(apiBaseUrl + "getAccessToken", {
         method: "POST",
         headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
+          Origin: "https://twitter.gilbertlam.me"
         },
-        body: `oauth_verifier=${oauthVerifier}&oauth_token=${oauthToken}`,
+        body: JSON.stringify({
+          oauth_verifier: oauthVerifier,
+          oauth_token: oauthToken
+        }),
       });
 }
 
 export {
     signIn,
-    getTweets,
+    getProfile,
     getAccessToken
 };
