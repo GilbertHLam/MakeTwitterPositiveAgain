@@ -1,5 +1,5 @@
 .section {
-  width: 40%;
+  width: 50%;
   height: 90vh;
   display: flex;
 }
@@ -194,6 +194,7 @@ h1 span:nth-child(2) {
 
   .section .container {
     width: 90%;
+    margin-top: 5%;
   }
 
   h1 {
@@ -214,5 +215,9 @@ h1 span:nth-child(2) {
 
   .icon-button i {
     width: 100%;
+  }
+
+  .waves {
+    height: 10vh;
   }
 }
