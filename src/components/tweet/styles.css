@@ -5,3 +5,34 @@
 .tweet-content {
 	padding-top: none !important;
 }
+
+.tweet-stats {
+	margin-top: 16px;
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+
+}
+
+.stat {
+	display: flex;
+	align-items: center;
+	font-family: Raleway;
+}
+
+.stat *{
+	margin-right: 10%;
+}
+
+.red {
+	color: red;
+}
+
+.lightblue {
+	color: lightblue;
+}
+
+.lightgreen {
+	color: lightgreen;
+}

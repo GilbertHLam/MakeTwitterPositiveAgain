@@ -7,6 +7,7 @@
 .your-tweets {
     max-height: calc(100vh - 56px);
     overflow-y: scroll;
+    background-color: #16202c;
 }
 
 .header {

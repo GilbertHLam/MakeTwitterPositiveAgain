@@ -10,7 +10,7 @@ import {
 } from "@material-ui/core";
 import "./styles.css";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
-import { lightBlue, green } from "@material-ui/core/colors";
+import { lightBlue, grey} from "@material-ui/core/colors";
 import Tweet from "../../components/tweet";
 import {
   Send,
@@ -24,13 +24,13 @@ import {
 const theme = createMuiTheme({
   palette: {
     primary: lightBlue,
-    secondary: green
+    secondary: grey
   },
   typography: {
     fontFamily: [
       "-apple-system",
-      "Raleway",
       '"Segoe UI"',
+      "Helvetica",
       "Roboto",
       '"Helvetica Neue"',
       "Arial",
@@ -49,7 +49,51 @@ const theme = createMuiTheme({
     MuiButton: {
       root: {
         "font-family": "Roboto",
-        color: "white"
+        "color": "white",
+        "min-width": "none"
+      },
+      label: {
+        "width": "auto"
+      },
+      text: {
+        "padding": "10px 0px"
+      }
+    },
+    MuiCard: {
+      root: {
+        "border": "1px solid #37444d"
+
+      }
+    },
+    MuiPaper: {
+      root: {
+        "background-color": "#16202c"
+      }
+    }, 
+    MuiIconButton: {
+      root: {
+        "color": "white"
+      }
+    },
+    MuiTypography: {
+      colorTextSecondary:{
+        "color": "white"
+      },
+      h5: {
+        "font-weight": "700",
+        "margin": "auto",
+        "font-family": [
+          "-apple-system",
+          "Helvetica Neue",
+          '"Segoe UI"',
+          "Roboto",
+          '"Helvetica Neue"',
+          "Arial",
+          "sans-serif",
+          '"Apple Color Emoji"',
+          '"Segoe UI Emoji"',
+          '"Segoe UI Symbol"'
+        ].join(",")
       }
     }
   }
@@ -95,7 +139,7 @@ const YourTweets: React.FC<YourTweetsProps> = (props: YourTweetsProps) => {
             src="https://pbs.twimg.com/media/C8QsNInXUAAyjZQ.jpg"
             className={"avatar"}
           />
-          <Typography variant="h6">{`Your Tweets`}</Typography>
+          <Typography variant="h5">{`Your Tweets`}</Typography>
           <div className="drop-down-menu">
             <Button
               onClick={(event) => {
@@ -145,26 +189,41 @@ const YourTweets: React.FC<YourTweetsProps> = (props: YourTweetsProps) => {
           score={76}
           content="Republicans & others must remember, the Ukrainian President and Foreign Minister both said that there was no pressure placed on them whatsoever. Also, they didn’t even know the money wasn’t paid, and got the money with no conditions. But why isn’t Germany, France (Europe) paying?"
           date="November 5th, 2019"
+          replies={3}
+          favorites={4}
+          retweets={83}
         />
         <Tweet
           score={14}
           content="Hey this is a tweet!"
           date="September 5th, 2019"
+          replies={3}
+          favorites={4}
+          retweets={83}
         />
         <Tweet
           score={31}
           content="Hey this is a tweet!"
           date="September 5th, 2019"
+          replies={3}
+          favorites={4}
+          retweets={83}
         />
         <Tweet
           score={6}
           content="Hey this is a tweet!"
           date="September 5th, 2019"
+          replies={3}
+          favorites={4}
+          retweets={83}
         />
         <Tweet
           score={97}
           content="Hey this is a tweet!"
           date="September 5th, 2019"
+          replies={3}
+          favorites={4}
+          retweets={83}
         />
       </div>
     </ThemeProvider>
