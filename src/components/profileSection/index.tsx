@@ -1,7 +1,7 @@
 import React from "react";
-import "./styles.css";  
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTwitter } from '@fortawesome/free-brands-svg-icons'
+import "./styles.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTwitter } from "@fortawesome/free-brands-svg-icons";
 import apiBaseUrl from "../../utils/apiBaseUrl";
 const element = (
   <div className="textContainer">
@@ -13,15 +13,10 @@ const element = (
 const LoginButton: React.FC = () => {
   return (
     <div className="loginButton fade-in">
-      
-       <a href={apiBaseUrl + "login"} className="icon-button twitter">
-           <i className="icon-twitter" >
-           {element}
-           </i>
-            <span>
-            </span>
-        </a>
-        
+      <a href={apiBaseUrl + "login"} className="icon-button twitter">
+        <i className="icon-twitter">{element}</i>
+        <span></span>
+      </a>
     </div>
   );
 };
