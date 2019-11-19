@@ -43,7 +43,11 @@ const theme = createMuiTheme({
   overrides: {
     MuiCardContent: {
       root: {
-        "padding-top": "0"
+        "padding": "16px",
+        "padding-top": "0",
+        "&:last-child": {
+          "padding-bottom": "16px"
+        }
       }
     },
     MuiButton: {
@@ -77,7 +81,8 @@ const theme = createMuiTheme({
     },
     MuiTypography: {
       colorTextSecondary:{
-        "color": "white"
+        "color": "white",
+        "line-height": "1"
       },
       h5: {
         "font-weight": "700",
@@ -195,11 +200,11 @@ const YourTweets: React.FC<YourTweetsProps> = (props: YourTweetsProps) => {
         />
         <Tweet
           score={14}
-          content="Hey this is a tweet!"
+          content="Just finished a very good & cordial meeting at the White House with Jay Powell of the Federal Reserve. Everything was discussed including interest rates, negative interest, low inflation, easing, Dollar strength & its effect on manufacturing, trade with China, E.U. & others, etc."
           date="September 5th, 2019"
-          replies={3}
-          favorites={4}
-          retweets={83}
+          replies={110}
+          favorites={42}
+          retweets={823}
         />
         <Tweet
           score={31}

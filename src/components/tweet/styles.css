@@ -7,11 +7,10 @@
 }
 
 .tweet-stats {
-	margin-top: 16px;
-	width: 100%;
+	width: 50%;
 	display: flex;
 	flex-direction: row;
-	justify-content: space-around;
+	justify-content: space-between;
 
 }
 
@@ -35,4 +34,17 @@
 
 .lightgreen {
 	color: lightgreen;
+}
+
+.tweet-footer {
+	margin-top: 16px;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+.date-wrapper {
+	display: flex;
+	justify-content: center;
+    align-items: flex-end;
 }

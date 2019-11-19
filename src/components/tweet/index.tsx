@@ -68,29 +68,36 @@ const Tweet: React.FC<TweetProps> = (props: TweetProps) => {
             </IconButton>
           }
           title={screen_name}
-          subheader={date}
+          subheader={""}
         />
         <CardContent className="tweet-content">
-          <Typography variant="body2" color="textSecondary" component="p">
+          <Typography variant="body1" color="textSecondary" component="p">
             {content}
           </Typography>
-          <div className="tweet-stats">
-          <div className="stat">
-              <ChatBubbleOutline className="lightgreen"/>
-              <Typography variant="body2" color="textSecondary" component="p">
-                {replies}
-              </Typography>
+          <div className="tweet-footer">
+            <div className="tweet-stats">
+              <div className="stat">
+                <ChatBubbleOutline className="lightgreen" />
+                <Typography variant="body2" color="textSecondary" component="p">
+                  {replies}
+                </Typography>
+              </div>
+              <div className="stat">
+                <Repeat className="lightblue" />
+                <Typography variant="body2" color="textSecondary" component="p">
+                  {retweets}
+                </Typography>
+              </div>
+              <div className="stat">
+                <Favorite className="red" />
+                <Typography variant="body2" color="textSecondary" component="p">
+                  {favorites}
+                </Typography>
+              </div>
             </div>
-            <div className="stat">
-              <Repeat className="lightblue"/>
-              <Typography variant="body2" color="textSecondary" component="p">
-                {retweets}
-              </Typography>
-            </div>
-            <div className="stat">
-              <Favorite className="red"/>
-              <Typography variant="body2" color="textSecondary" component="p">
-                {favorites}
+            <div className="date-wrapper">
+              <Typography variant="caption" color="textSecondary" component="p">
+                {date}
               </Typography>
             </div>
           </div>
