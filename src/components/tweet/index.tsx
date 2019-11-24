@@ -6,7 +6,9 @@ import {
   Avatar,
   IconButton,
   CardContent,
-  Typography
+  Typography,
+  Badge,
+  Tooltip
 } from "@material-ui/core";
 import {
   Delete,
@@ -63,38 +65,37 @@ const Tweet: React.FC<TweetProps> = (props: TweetProps) => {
             </Avatar>
           }
           action={
-            <IconButton aria-label="delete">
-              <Delete />
-            </IconButton>
+            <Tooltip title="Delete">
+              <IconButton aria-label="delete">
+                <Delete  />
+              </IconButton>
+            </Tooltip>
           }
           title={screen_name}
-          subheader={""}
+          subheader={<div className="tweet-stats">
+          <div className="stat">
+            <Badge badgeContent={replies} max={999}>
+              <ChatBubbleOutline className="lightgreen" />
+            </Badge>
+          </div>
+          <div className="stat">
+          <Badge badgeContent={retweets} max={999}>
+            <Repeat className="lightblue" />
+            </Badge>
+          </div>
+          <div className="stat">
+          <Badge badgeContent={favorites} max={999} >
+            <Favorite className="red" />
+            </Badge>
+          </div>
+        </div>}
         />
         <CardContent className="tweet-content">
           <Typography variant="body1" color="textSecondary" component="p">
             {content}
           </Typography>
           <div className="tweet-footer">
-            <div className="tweet-stats">
-              <div className="stat">
-                <ChatBubbleOutline className="lightgreen" />
-                <Typography variant="body2" color="textSecondary" component="p">
-                  {replies}
-                </Typography>
-              </div>
-              <div className="stat">
-                <Repeat className="lightblue" />
-                <Typography variant="body2" color="textSecondary" component="p">
-                  {retweets}
-                </Typography>
-              </div>
-              <div className="stat">
-                <Favorite className="red" />
-                <Typography variant="body2" color="textSecondary" component="p">
-                  {favorites}
-                </Typography>
-              </div>
-            </div>
+            
             <div className="date-wrapper">
               <Typography variant="caption" color="textSecondary" component="p">
                 {date}

@@ -1,22 +1,10 @@
-.nav-bar {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-}
+
 
 .your-tweets {
-    max-height: calc(100vh - 56px);
-    overflow-y: scroll;
     background-color: #16202c;
+    margin-top: 56px;
 }
 
-.header {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    padding: 3%;
-    color:white;
-}
 
 h3 {
     font-size: 1rem;

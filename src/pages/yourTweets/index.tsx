@@ -6,11 +6,14 @@ import {
   Menu,
   ListItemIcon,
   ListItemText,
-  Button
+  Button,
+  Toolbar,
+  Container,
+  CssBaseline
 } from "@material-ui/core";
 import "./styles.css";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
-import { lightBlue, grey} from "@material-ui/core/colors";
+import { lightBlue, grey } from "@material-ui/core/colors";
 import Tweet from "../../components/tweet";
 import {
   Send,
@@ -20,6 +23,7 @@ import {
   ThumbUp,
   ThumbDown
 } from "@material-ui/icons";
+import NavBar from "../../components/navBar";
 
 const theme = createMuiTheme({
   palette: {
@@ -43,50 +47,64 @@ const theme = createMuiTheme({
   overrides: {
     MuiCardContent: {
       root: {
-        "padding": "16px",
+        padding: "16px",
         "padding-top": "0",
         "&:last-child": {
           "padding-bottom": "16px"
         }
       }
     },
+    MuiBadge: {
+      anchorOriginTopRightRectangle: {
+        transform: "scale(1) translate(100%, 0%)"
+      }
+    },
     MuiButton: {
       root: {
         "font-family": "Roboto",
-        "color": "white",
+        color: "white",
         "min-width": "none"
       },
       label: {
-        "width": "auto"
+        width: "auto"
       },
       text: {
-        "padding": "10px 0px"
+        padding: "10px 0px"
       }
     },
     MuiCard: {
       root: {
-        "border": "1px solid #37444d"
-
+        border: "1px solid #37444d"
       }
     },
     MuiPaper: {
       root: {
-        "background-color": "#16202c"
+        "background-color": "#16202c",
+        color: "white"
+      },
+      elevation4: {
+        "box-shadow": "none"
       }
-    }, 
+    },
     MuiIconButton: {
       root: {
-        "color": "white"
+        color: "white"
+      }
+    },
+    MuiAppBar: {
+      colorPrimary: {
+        "background-color": "#16202c",
+        color: "none"
       }
     },
     MuiTypography: {
-      colorTextSecondary:{
-        "color": "white",
+      colorTextSecondary: {
+        color: "white",
         "line-height": "1"
       },
       h5: {
         "font-weight": "700",
-        "margin": "auto",
+        margin: "auto",
         "font-family": [
           "-apple-system",
           "Helvetica Neue",
@@ -137,59 +155,9 @@ const YourTweets: React.FC<YourTweetsProps> = (props: YourTweetsProps) => {
 
   return (
     <ThemeProvider theme={theme}>
+        <NavBar />
+
       <div className="your-tweets">
-        <div className="header">
-          <Avatar
-            alt="Avatar"
-            src="https://pbs.twimg.com/media/C8QsNInXUAAyjZQ.jpg"
-            className={"avatar"}
-          />
-          <Typography variant="h5">{`Your Tweets`}</Typography>
-          <div className="drop-down-menu">
-            <Button
-              onClick={(event) => {
-                handleClick(event);
-              }}
-            >
-              <CalendarToday fontSize="small" />
-            </Button>
-            <Menu
-              id="customized-menu"
-              anchorEl={anchorEl}
-              keepMounted
-              open={open}
-              onClose={handleClose}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'center',
-              }}
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'center',
-              }}
-            >
-              <h3>{`Sort By: `}</h3>
-              <MenuItem>
-                <ListItemIcon>
-                  <CalendarToday fontSize="small" />
-                </ListItemIcon>
-                <ListItemText primary="Most Recent" />
-              </MenuItem>
-              <MenuItem>
-                <ListItemIcon>
-                  <ThumbUp fontSize="small" />
-                </ListItemIcon>
-                <ListItemText primary="Most Positive" />
-              </MenuItem>
-              <MenuItem>
-                <ListItemIcon>
-                  <ThumbDown fontSize="small" />
-                </ListItemIcon>
-                <ListItemText primary="Most Negative" />
-              </MenuItem>
-            </Menu>
-          </div>
-        </div>
         <Tweet
           score={76}
           content="Republicans & others must remember, the Ukrainian President and Foreign Minister both said that there was no pressure placed on them whatsoever. Also, they didn’t even know the money wasn’t paid, and got the money with no conditions. But why isn’t Germany, France (Europe) paying?"

@@ -3,6 +3,7 @@ import { getProfile } from "../../utils/apiCalls";
 import { BottomNavigation, BottomNavigationAction } from "@material-ui/core";
 import { RecordVoiceOver, TrendingUp, Settings } from "@material-ui/icons";
 import YourTweets from "../yourTweets";
+import NavBar from "../../components/navBar";
 import "./styles.css";
 
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
@@ -22,6 +23,28 @@ const theme = createMuiTheme({
         "-moz-box-shadow": "0 10px 20px rgba(0,0,0,0.34)",
         "box-shadow": "0 10px 20px rgba(0,0,0,0.34)",
         "font-weight": "800"
+      }
+    },
+    MuiTypography: {
+      colorTextSecondary:{
+        "color": "white",
+        "line-height": "1"
+      },
+      h5: {
+        "font-weight": "700",
+        "margin": "auto",
+        "font-family": [
+          "-apple-system",
+          "Helvetica Neue",
+          '"Segoe UI"',
+          "Roboto",
+          '"Helvetica Neue"',
+          "Arial",
+          "sans-serif",
+          '"Apple Color Emoji"',
+          '"Segoe UI Emoji"',
+          '"Segoe UI Symbol"'
+        ].join(",")
       }
     }
   }
@@ -57,21 +80,6 @@ const Dashboard: React.FC<DashboardProps> = (props: { location: any }) => {
     <ThemeProvider theme={theme}>
       <div className="dashboard">
         {yourTweets}
-        <BottomNavigation
-          value={value}
-          onChange={(event, newValue) => {
-            setValue(newValue);
-          }}
-          showLabels
-          className="nav-bar"
-        >
-          <BottomNavigationAction
-            label="Your Tweets"
-            icon={<RecordVoiceOver />}
-          />
-          <BottomNavigationAction label="Trending" icon={<TrendingUp />} />
-          <BottomNavigationAction label="Preferences" icon={<Settings />} />
-        </BottomNavigation>
       </div>
     </ThemeProvider>
   );
