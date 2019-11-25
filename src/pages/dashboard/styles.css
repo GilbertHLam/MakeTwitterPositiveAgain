@@ -1,0 +1,9 @@
+.dashboard {
+    max-height: 100vh;
+}
+
+.nav-bar {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}

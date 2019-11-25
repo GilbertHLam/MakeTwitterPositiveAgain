@@ -3,7 +3,6 @@ import "./styles.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTwitter } from "@fortawesome/free-brands-svg-icons";
 import apiBaseUrl from "../../utils/apiBaseUrl";
-
 const element = (
   <div className="textContainer">
     <FontAwesomeIcon icon={faTwitter} />

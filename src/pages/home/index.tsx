@@ -2,7 +2,6 @@ import React from "react";
 import Wave from "../../components/wave";
 import LoginButton from "../../components/loginButton";
 import "./styles.css";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 const Home: React.FC = () => {
   return (

@@ -1,0 +1,49 @@
+.tweet {
+	padding: 1% 2%;
+}
+
+.tweet-content {
+	padding-top: none !important;
+}
+
+.tweet-stats {
+	width: 60%;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	margin-left: 30%;
+}
+
+.stat {
+	display: flex;
+	align-items: center;
+	font-family: Raleway;
+}
+
+.stat *{
+	margin-right: 10%;
+}
+
+.red {
+	color: red;
+}
+
+.lightblue {
+	color: lightblue;
+}
+
+.lightgreen {
+	color: lightgreen;
+}
+
+.tweet-footer {
+	margin-top: 16px;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+.date-wrapper {
+	width: 100%;
+	text-align: right;
+}

@@ -1,51 +1,70 @@
-.section{
-    width: 40%;
-    height: 90vh;
-    display: flex;
+.section {
+  width: 50%;
+  height: 90vh;
+  display: flex;
 }
 
 .section .container {
-    margin: auto auto;
-    width: 50%;
+  margin: auto auto;
+  width: 50%;
 }
 
 h1 {
-    font-family: "Raleway", Arial, Helvetica, sans-serif;
-    font-weight: 900;
-    font-size: 4vw;
-    margin-top: 1rem;
-    margin-bottom: 2rem;
-    color: #1ea1f1;
-    line-height: 35px;
+  font-family: "Raleway", Arial, Helvetica, sans-serif;
+  font-weight: 900;
+  font-size: 4vw;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  color: #1ea1f1;
+  line-height: 35px;
 }
 
 .white {
-    color: white;
-    
+  color: white;
 }
 
 .home {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100vw;
+  height: 100vh;
 }
 
 h1 span {
-    position: relative;
-    top: 5px;
-    animation: bounce .5s ease infinite alternate;
-    display: inline-block;
+  position: relative;
+  top: 5px;
+  animation: bounce 0.5s ease infinite alternate;
+  display: inline-block;
 }
 
-h1 span:nth-child(2) { animation-delay: .1s; }
-h1 span:nth-child(3) { animation-delay: .2s; }
-h1 span:nth-child(4) { animation-delay: .3s; }
-h1 span:nth-child(5) { animation-delay: .4s; }
-h1 span:nth-child(6) { animation-delay: .5s; }
-h1 span:nth-child(7) { animation-delay: .6s; }
-h1 span:nth-child(8) { animation-delay: .7s; }
-h1 span:nth-child(2) { animation-delay: .9s; }
-h1 span:nth-child(2) { animation-delay: .9s; }
+h1 span:nth-child(2) {
+  animation-delay: 0.1s;
+}
+h1 span:nth-child(3) {
+  animation-delay: 0.2s;
+}
+h1 span:nth-child(4) {
+  animation-delay: 0.3s;
+}
+h1 span:nth-child(5) {
+  animation-delay: 0.4s;
+}
+h1 span:nth-child(6) {
+  animation-delay: 0.5s;
+}
+h1 span:nth-child(7) {
+  animation-delay: 0.6s;
+}
+h1 span:nth-child(8) {
+  animation-delay: 0.7s;
+}
+h1 span:nth-child(2) {
+  animation-delay: 0.9s;
+}
+h1 span:nth-child(2) {
+  animation-delay: 0.9s;
+}
 
 @keyframes bounce {
   100% {
@@ -56,111 +75,149 @@ h1 span:nth-child(2) { animation-delay: .9s; }
 /* First, we wrap every single word in a .wordContainer div */
 /* We set that one to hide it's overflow */
 .wordContainer {
-    overflow: hidden;
+  overflow: hidden;
+}
+
+/* We define the animation */
+@keyframes up {
+  100% {
+    transform: translateY(0%);
   }
-  
-  /* We define the animation */
-  @keyframes up {
-    100% {
-      transform: translateY(0%);
-    }
+}
+
+/* Then, every single word gets animated up */
+.word {
+  animation: up 0.8s;
+  animation-delay: 0.3s;
+  animation-fill-mode: forwards;
+  animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+  transform: translateY(230%);
+}
+
+/* Delay for staggering effect */
+.textWrapper .wordContainer:nth-child(2) .word {
+  animation-delay: 0.6s;
+}
+.textWrapper .wordContainer:nth-child(3) .word {
+  animation-delay: 0.9s;
+}
+.textWrapper .wordContainer:nth-child(4) .word {
+  animation-delay: 1.2s;
+}
+
+.fade-in {
+  animation-delay: 0.3s;
+  animation: fadeIn ease 1.2s;
+  -webkit-animation: fadeIn ease 1.2s;
+  -moz-animation: fadeIn ease 1.2s;
+  -o-animation: fadeIn ease 1.2s;
+  -ms-animation: fadeIn ease 1.2s;
+}
+
+.fade-in:nth-child(2) {
+  animation-delay: 0.6s;
+}
+.fade-in:nth-child(3) {
+  animation-delay: 0.9s;
+}
+.fade-in:nth-child(4) {
+  animation-delay: 1.2s;
+}
+.fade-in:nth-child(5) {
+  animation-delay: 1.5s;
+}
+.fade-in:nth-child(6) {
+  animation-delay: 1.8s;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
   }
-  
-  /* Then, every single word gets animated up */
-  .word {
-    animation: up 0.8s;
-    animation-delay: .3s;
-    animation-fill-mode: forwards;
-    animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
-    transform: translateY(230%);
+  100% {
+    opacity: 1;
   }
-  
-  /* Delay for staggering effect */
-  .textWrapper .wordContainer:nth-child(2) .word {
-    animation-delay: .6s;
+}
+
+@-moz-keyframes fadeIn {
+  0% {
+    opacity: 0;
   }
-  .textWrapper .wordContainer:nth-child(3) .word {
-    animation-delay: .9s;
+  100% {
+    opacity: 1;
   }
-  .textWrapper .wordContainer:nth-child(4) .word {
-    animation-delay: 1.2s;
+}
+
+@-webkit-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@-o-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@-ms-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.button {
+  margin: auto;
+}
+
+@media (max-width: 900px) {
+  h1 {
+    width: 100%;
   }
 
-  .fade-in {
-    animation-delay: .3s;
-    animation: fadeIn ease 1.2s;
-    -webkit-animation: fadeIn ease 1.2s;
-    -moz-animation: fadeIn ease 1.2s;
-    -o-animation: fadeIn ease 1.2s;
-    -ms-animation: fadeIn ease 1.2s;
+  .home {
+    flex-direction: column;
   }
 
-  .fade-in:nth-child(2) {
-    animation-delay: .6s;
+  .section {
+    width: 100%;
   }
-  .fade-in:nth-child(3) {
-    animation-delay: .9s;
+
+  .section .container {
+    width: 90%;
+    margin-top: 5%;
   }
-  .fade-in:nth-child(4) {
-    animation-delay: 1.2s;
-  }
-  .fade-in:nth-child(5) {
-    animation-delay: 1.5s;
-  }
-  .fade-in:nth-child(6) {
-    animation-delay: 1.8s;
-  }
-  
-  
-  @keyframes fadeIn{
-    0% {
-      opacity:0;
-    }
-    100% {
-      opacity:1;
-    }
-  }
-  
-  @-moz-keyframes fadeIn {
-    0% {
-      opacity:0;
-    }
-    100% {
-      opacity:1;
-    }
-  }
-  
-  @-webkit-keyframes fadeIn {
-    0% {
-      opacity:0;
-    }
-    100% {
-      opacity:1;
-    }
-  }
-  
-  @-o-keyframes fadeIn {
-    0% {
-      opacity:0;
-    }
-    100% {
-      opacity:1;
-    }
-  }
-  
-  @-ms-keyframes fadeIn {
-    0% {
-      opacity:0;
-    }
-    100% {
-      opacity:1;
-    }
+
+  h1 {
+    font-size: 4rem;
   }
 
   .button {
-    margin: auto;
+    width: 90%;
   }
 
-  h2 {
-
+  .icon-button {
+    width: 100%;
   }
+
+  .textContainer {
+    width: 90%;
+  }
+
+  .icon-button i {
+    width: 100%;
+  }
+
+  .waves {
+    height: 10vh;
+  }
+}
