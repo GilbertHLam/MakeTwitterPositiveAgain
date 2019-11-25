@@ -23,13 +23,13 @@ const theme = createMuiTheme({
       }
     },
     MuiTypography: {
-      colorTextSecondary:{
-        "color": "white",
+      colorTextSecondary: {
+        color: "white",
         "line-height": "1"
       },
       h5: {
         "font-weight": "700",
-        "margin": "auto",
+        margin: "auto",
         "font-family": [
           "-apple-system",
           "Helvetica Neue",
@@ -52,33 +52,40 @@ interface DashboardProps extends React.HTMLProps<HTMLDivElement> {
 }
 
 const Dashboard: React.FC<DashboardProps> = (props: { location: any }) => {
-  console.log(props.location.state);
-  const {state} = useStateValue();
+  const { state } = useStateValue();
 
-  if (state.credentials.oauth_token=="") {
-    return (
-      <Redirect
-        to={{
-          pathname: "/"
-        }}
+  const oauth_token = state.credentials.oauth_token
+    ? state.credentials.oauth_token
+    : localStorage.getItem("oauth_token");
+  const oauth_token_secret = state.credentials.oauth_token_secret
+    ? state.credentials.oauth_token_secret
+    : localStorage.getItem("oauth_token_secret");
+  const screen_name = state.credentials.screen_name
+    ? state.credentials.screen_name
+    : localStorage.getItem("screen_name");
+
+  if (oauth_token && oauth_token_secret && screen_name) {
+    const yourTweets = (
+      <YourTweets
+        oauth_token={oauth_token}
+        oauth_token_secret={oauth_token_secret}
+        screen_name={screen_name}
       />
+    );
+
+    return (
+      <ThemeProvider theme={theme}>
+        <div className="dashboard">{yourTweets}</div>
+      </ThemeProvider>
     );
   }
 
-  const yourTweets = (
-    <YourTweets
-      oauth_token={state.credentials.oauth_token}
-      oauth_token_secret={state.credentials.oauth_token_secret}
-      screen_name={state.credentials.screen_name}
-    />
-  );
-
   return (
-    <ThemeProvider theme={theme}>
-      <div className="dashboard">
-        {yourTweets}
-      </div>
-    </ThemeProvider>
+    <Redirect
+      to={{
+        pathname: "/"
+      }}
+    />
   );
 };
 

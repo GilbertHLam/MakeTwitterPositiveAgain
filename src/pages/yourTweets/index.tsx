@@ -4,7 +4,7 @@ import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import { lightBlue, grey } from "@material-ui/core/colors";
 import Tweet from "../../components/tweet";
 import NavBar from "../../components/navBar";
-import { getProfile } from "../../utils/apiCalls";
+import { getProfile, getRecentTweets } from "../../utils/apiCalls";
 
 const theme = createMuiTheme({
   palette: {
@@ -104,15 +104,16 @@ const theme = createMuiTheme({
 });
 
 interface YourTweetsProps extends React.HTMLProps<HTMLDivElement> {
-  screen_name: String;
-  oauth_token: String;
-  oauth_token_secret: String;
+  screen_name: string;
+  oauth_token: string;
+  oauth_token_secret: string;
 }
 
 const YourTweets: React.FC<YourTweetsProps> = (props: YourTweetsProps) => {
-    const req = getProfile(
+    const req = getRecentTweets(
       props.oauth_token,
       props.oauth_token_secret,
+      props.screen_name
     )
       .then(response => {
         return response.json();
