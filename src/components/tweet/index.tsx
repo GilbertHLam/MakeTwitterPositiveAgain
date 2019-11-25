@@ -24,7 +24,21 @@ interface TweetProps extends React.HTMLProps<HTMLDivElement> {
   date: string;
   favorites: number;
   retweets: number;
-  replies: number;
+}
+
+const formatDate = (date: Date) => {
+  const monthNames = [
+    "January", "February", "March",
+    "April", "May", "June", "July",
+    "August", "September", "October",
+    "November", "December"
+  ];
+
+  const day = date.getDate();
+  const monthIndex = date.getMonth();
+  const year = date.getFullYear();
+
+  return monthNames[monthIndex] + ' ' + day + ', ' + year;
 }
 
 const Tweet: React.FC<TweetProps> = (props: TweetProps) => {
@@ -34,11 +48,12 @@ const Tweet: React.FC<TweetProps> = (props: TweetProps) => {
     content,
     date,
     favorites,
-    retweets,
-    replies
+    retweets
   } = props;
 
   let color;
+
+  const formattedDate = formatDate(new Date(date));
 
   if (score > 75) {
     color = "#1da1f2";
@@ -47,6 +62,7 @@ const Tweet: React.FC<TweetProps> = (props: TweetProps) => {
   } else {
     color = "#ec2F4B";
   }
+
 
   return (
     <div className="tweet">
@@ -74,17 +90,12 @@ const Tweet: React.FC<TweetProps> = (props: TweetProps) => {
           title={screen_name}
           subheader={<div className="tweet-stats">
           <div className="stat">
-            <Badge badgeContent={replies} max={999}>
-              <ChatBubbleOutline className="lightgreen" />
-            </Badge>
-          </div>
-          <div className="stat">
-          <Badge badgeContent={retweets} max={999}>
+          <Badge badgeContent={retweets ? retweets : 0} max={999} showZero={true}>
             <Repeat className="lightblue" />
             </Badge>
           </div>
           <div className="stat">
-          <Badge badgeContent={favorites} max={999} >
+          <Badge badgeContent={favorites ? favorites : 0} max={999}  showZero={true}>
             <Favorite className="red" />
             </Badge>
           </div>
@@ -98,7 +109,7 @@ const Tweet: React.FC<TweetProps> = (props: TweetProps) => {
             
             <div className="date-wrapper">
               <Typography variant="caption" color="textSecondary" component="p">
-                {date}
+                {formattedDate}
               </Typography>
             </div>
           </div>
