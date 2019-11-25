@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import "./styles.css";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import { lightBlue, grey } from "@material-ui/core/colors";
 import Tweet from "../../components/tweet";
 import NavBar from "../../components/navBar";
-import { getProfile, getRecentTweets } from "../../utils/apiCalls";
+import { getRecentTweets } from "../../utils/apiCalls";
 
 const theme = createMuiTheme({
   palette: {
@@ -110,34 +110,23 @@ interface YourTweetsProps extends React.HTMLProps<HTMLDivElement> {
 }
 
 const YourTweets: React.FC<YourTweetsProps> = (props: YourTweetsProps) => {
-    const req = getRecentTweets(
-      props.oauth_token,
-      props.oauth_token_secret,
-      props.screen_name
-    )
-      .then(response => {
-        return response.json();
-      })
-      .then((data: any) => {
-        console.log(data);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const open = Boolean(anchorEl);
-
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
+  const req = getRecentTweets(
+    props.oauth_token,
+    props.oauth_token_secret,
+    props.screen_name
+  )
+    .then(response => {
+      return response.json();
+    })
+    .then((data: any) => {
+      console.log(data);
+    })
+    .catch(err => {
+      console.log(err);
+    });
   return (
     <ThemeProvider theme={theme}>
-        <NavBar />
+      <NavBar />
 
       <div className="your-tweets">
         <Tweet
