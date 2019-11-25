@@ -50,8 +50,8 @@ export default function NavBar(props: Props) {
   const sideList = () => (
     <div
       role="presentation"
-      onClick={()=>setDrawerOpen(false)}
-      onKeyDown={()=>setDrawerOpen(false)}
+      onClick={() => setDrawerOpen(false)}
+      onKeyDown={() => setDrawerOpen(false)}
     >
       <List>
         {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
@@ -83,7 +83,6 @@ export default function NavBar(props: Props) {
     // will default to window.
     // This is only being set here because the demo is in an iframe.
     const trigger = useScrollTrigger({ target: window ? window() : undefined });
-    console.log(trigger);
     return (
       <Slide appear={false} direction="down" in={!trigger}>
         {children}

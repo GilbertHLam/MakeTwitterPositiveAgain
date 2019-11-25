@@ -1,15 +1,12 @@
-import React, { useState, useEffect } from "react";
-import { getProfile } from "../../utils/apiCalls";
-import { BottomNavigation, BottomNavigationAction } from "@material-ui/core";
-import { RecordVoiceOver, TrendingUp, Settings } from "@material-ui/icons";
+import React, { useState } from "react";
 import YourTweets from "../yourTweets";
-import NavBar from "../../components/navBar";
 import "./styles.css";
 
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 
 import { lightBlue, green } from "@material-ui/core/colors";
 import { Redirect } from "react-router";
+import { useStateValue } from "../../state";
 
 const theme = createMuiTheme({
   palette: {
@@ -56,9 +53,9 @@ interface DashboardProps extends React.HTMLProps<HTMLDivElement> {
 
 const Dashboard: React.FC<DashboardProps> = (props: { location: any }) => {
   console.log(props.location.state);
-  const [value, setValue] = useState(0);
+  const {state} = useStateValue();
 
-  if (!props.location.state) {
+  if (state.credentials.oauth_token=="") {
     return (
       <Redirect
         to={{
@@ -70,9 +67,9 @@ const Dashboard: React.FC<DashboardProps> = (props: { location: any }) => {
 
   const yourTweets = (
     <YourTweets
-      oauth_token={props.location.state.oauth_token}
-      oauth_token_secret={props.location.state.oauth_token_secret}
-      screen_name={props.location.state.screen_name}
+      oauth_token={state.credentials.oauth_token}
+      oauth_token_secret={state.credentials.oauth_token_secret}
+      screen_name={state.credentials.screen_name}
     />
   );
 

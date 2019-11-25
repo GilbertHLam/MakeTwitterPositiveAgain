@@ -5,28 +5,21 @@ import Home from "./pages/home";
 import Dashboard from "./pages/dashboard";
 import LoginRedirect from "./pages/loginRedirect";
 import { BrowserRouter as Router, Route} from "react-router-dom";
-
-export const UserContext = React.createContext({
-  oauth_token: '',
-  oauth_verifier:''
-});
-
-const App: React.FC = () => {
+import { StateProvider } from "./state";
+import { StateType, credentialsType, Action, StateProviderType } from "./types/types";
 
 
+
+
+const App = () => {
   return (
-    <UserContext.Provider value={
-      {
-        oauth_token: '',
-        oauth_verifier:''
-      }
-    }>
+    <StateProvider>
       <Router>
         <Route path="/" exact component={Home} />
         <Route path="/dashboard" component={Dashboard} />
         <Route path="/loginRedirect" component={LoginRedirect} />
       </Router>
-    </UserContext.Provider>
+    </StateProvider>
   );
 };
 

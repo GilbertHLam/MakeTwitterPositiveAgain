@@ -1,29 +1,10 @@
 import React, { useState, useEffect } from "react";
-import {
-  Typography,
-  Avatar,
-  MenuItem,
-  Menu,
-  ListItemIcon,
-  ListItemText,
-  Button,
-  Toolbar,
-  Container,
-  CssBaseline
-} from "@material-ui/core";
 import "./styles.css";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import { lightBlue, grey } from "@material-ui/core/colors";
 import Tweet from "../../components/tweet";
-import {
-  Send,
-  Drafts,
-  Inbox,
-  CalendarToday,
-  ThumbUp,
-  ThumbDown
-} from "@material-ui/icons";
 import NavBar from "../../components/navBar";
+import { getProfile } from "../../utils/apiCalls";
 
 const theme = createMuiTheme({
   palette: {
@@ -129,19 +110,19 @@ interface YourTweetsProps extends React.HTMLProps<HTMLDivElement> {
 }
 
 const YourTweets: React.FC<YourTweetsProps> = (props: YourTweetsProps) => {
-  //   const req = getProfile(
-  //     props.oauth_token,
-  //     props.oauth_token_secret
-  //   )
-  //     .then(response => {
-  //       return response.json();
-  //     })
-  //     .then((data: any) => {
-  //       console.log(data);
-  //     })
-  //     .catch(err => {
-  //       console.log(err);
-  //     });
+    const req = getProfile(
+      props.oauth_token,
+      props.oauth_token_secret,
+    )
+      .then(response => {
+        return response.json();
+      })
+      .then((data: any) => {
+        console.log(data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 

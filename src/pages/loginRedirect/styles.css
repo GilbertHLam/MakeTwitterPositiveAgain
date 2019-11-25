@@ -6,4 +6,9 @@
     justify-content: space-around;
     text-align: center;
     align-content: center;
+    background-color: #16202c;
+}
+
+.spinner {
+    margin: auto;
 }
