@@ -8,7 +8,7 @@ import theme from "../../theme";
 import { TweetType } from "../../types/types";
 import { CircularProgress } from "@material-ui/core";
 import { useStateValue } from "../../state";
-
+import FlipMove from "react-flip-move";
 interface YourTweetsProps extends React.HTMLProps<HTMLDivElement> {
   screen_name: string;
   oauth_token: string;
@@ -45,40 +45,48 @@ const YourTweets: React.FC<YourTweetsProps> = (props: YourTweetsProps) => {
   }, []);
 
   const sortTweets = () => {
-    if(state.sortMethod === "recent") {
-      return tweets;
-    } else if (state.sortMethod === "positive") {
-      return tweets.sort((a: TweetType, b: TweetType):number => {
-        if(a.score > b.score) {
-          return 1;
+    if (state.sortMethod === "recent") {
+      return tweets.sort((a: TweetType, b: TweetType): number => {
+        const ad = new Date(a.created_at);
+        const bd = new Date(b.created_at);
+        if (ad > bd) {
+          return -1;
         }
-        return -1;
+        return 1;
+      });
+    } else if (state.sortMethod === "positive") {
+      return tweets.sort((a: TweetType, b: TweetType): number => {
+        if (a.score > b.score) {
+          return -1;
+        }
+        return 1;
       });
     } else if (state.sortMethod === "negative") {
-      return tweets.sort((a: TweetType, b: TweetType):number => {
-        if(a.score < b.score) {
-          return 1;
+      return tweets.sort((a: TweetType, b: TweetType): number => {
+        if (a.score < b.score) {
+          return -1;
         }
-        return -1;
+        return 1;
       });
     } else {
       return tweets;
     }
-  }
+  };
 
   const tweetsDiv = (
-    <div>
+    <FlipMove>
       {sortTweets().map(tweet => (
-        <Tweet
-          score={tweet.score}
-          content={tweet.text}
-          date={tweet.created_at}
-          favorites={tweet.favorite_count}
-          retweets={tweet.retweet_count}
-          key={tweet.id}
-        />
+        <div key={tweet.id}>
+          <Tweet
+            score={tweet.score}
+            content={tweet.text}
+            date={tweet.created_at}
+            favorites={tweet.favorite_count}
+            retweets={tweet.retweet_count}
+          />
+        </div>
       ))}
-    </div>
+    </FlipMove>
   );
 
   return (

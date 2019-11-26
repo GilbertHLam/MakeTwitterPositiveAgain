@@ -22,24 +22,25 @@ export default function NavBar(props: any) {
     dispatch({
       type: "setSortMethod",
       sortMethod: sortMethod
-    })
-  }
+    });
+    setSortMenuOpen(false);
+  };
 
   const handleMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
     setSortMenuOpen(true);
   };
 
   const sortIcon: any = (
-      <IconButton
-        aria-label="account of current user"
-        aria-controls="menu-appbar"
-        aria-haspopup="true"
-        onClick={handleMenu}
-        color="inherit"
-        ref={ref}
-      >
-        <CalendarToday fontSize="small" />
-      </IconButton>
+    <IconButton
+      aria-label="account of current user"
+      aria-controls="menu-appbar"
+      aria-haspopup="true"
+      onClick={handleMenu}
+      color="inherit"
+      ref={ref}
+    >
+      <CalendarToday fontSize="small" />
+    </IconButton>
   );
 
   const HideOnScroll = (props: any) => {

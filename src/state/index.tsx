@@ -1,13 +1,5 @@
-import React, {
-  createContext,
-  useContext,
-  useReducer,
-} from "react";
-import {
-  StateType,
-  Action,
-  StateProviderProps
-} from "../types/types";
+import React, { createContext, useContext, useReducer } from "react";
+import { StateType, Action, StateProviderProps } from "../types/types";
 
 export const initialState: StateType = {
   credentials: {
@@ -34,12 +26,12 @@ export const reducer = (prevState: StateType, action: Action): StateType => {
         ...prevState,
         credentials: action.credentials
       };
-    
+
     case "setSortMethod":
       return {
         ...prevState,
         sortMethod: action.sortMethod
-      }
+      };
 
     default:
       return prevState;

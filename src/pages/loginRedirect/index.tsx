@@ -24,9 +24,9 @@ const LoginRedirect: React.FC = () => {
             type: "setCredentials",
             credentials: data
           });
-          localStorage.setItem("oauth_token",data.oauth_token);
-          localStorage.setItem("oauth_token_secret",data.oauth_token_secret);
-          localStorage.setItem("screen_name",data.screen_name);
+          localStorage.setItem("oauth_token", data.oauth_token);
+          localStorage.setItem("oauth_token_secret", data.oauth_token_secret);
+          localStorage.setItem("screen_name", data.screen_name);
           setAccess(true);
         })
         .catch(err => {

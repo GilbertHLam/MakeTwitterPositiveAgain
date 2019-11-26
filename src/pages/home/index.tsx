@@ -43,9 +43,9 @@ const Home: React.FC = () => {
           </div>
         </div>
         <div className="section">
-            <div className="button">
-              <LoginButton/>
-            </div>
+          <div className="button">
+            <LoginButton />
+          </div>
         </div>
       </div>
 
