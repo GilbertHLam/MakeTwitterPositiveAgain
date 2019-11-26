@@ -24,21 +24,37 @@ interface TweetProps extends React.HTMLProps<HTMLDivElement> {
   date: string;
   favorites: number;
   retweets: number;
-  replies: number;
 }
 
+const formatDate = (date: Date) => {
+  const monthNames = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December"
+  ];
+
+  const day = date.getDate();
+  const monthIndex = date.getMonth();
+  const year = date.getFullYear();
+
+  return monthNames[monthIndex] + " " + day + ", " + year;
+};
+
 const Tweet: React.FC<TweetProps> = (props: TweetProps) => {
-  const {
-    score,
-    screen_name,
-    content,
-    date,
-    favorites,
-    retweets,
-    replies
-  } = props;
+  const { score, screen_name, content, date, favorites, retweets } = props;
 
   let color;
+
+  const formattedDate = formatDate(new Date(date));
 
   if (score > 75) {
     color = "#1da1f2";
@@ -67,38 +83,42 @@ const Tweet: React.FC<TweetProps> = (props: TweetProps) => {
           action={
             <Tooltip title="Delete">
               <IconButton aria-label="delete">
-                <Delete  />
+                <Delete />
               </IconButton>
             </Tooltip>
           }
           title={screen_name}
-          subheader={<div className="tweet-stats">
-          <div className="stat">
-            <Badge badgeContent={replies} max={999}>
-              <ChatBubbleOutline className="lightgreen" />
-            </Badge>
-          </div>
-          <div className="stat">
-          <Badge badgeContent={retweets} max={999}>
-            <Repeat className="lightblue" />
-            </Badge>
-          </div>
-          <div className="stat">
-          <Badge badgeContent={favorites} max={999} >
-            <Favorite className="red" />
-            </Badge>
-          </div>
-        </div>}
+          subheader={
+            <div className="tweet-stats">
+              <div className="stat">
+                <Badge
+                  badgeContent={retweets ? retweets : 0}
+                  max={999}
+                  showZero={true}
+                >
+                  <Repeat className="lightblue" />
+                </Badge>
+              </div>
+              <div className="stat">
+                <Badge
+                  badgeContent={favorites ? favorites : 0}
+                  max={999}
+                  showZero={true}
+                >
+                  <Favorite className="red" />
+                </Badge>
+              </div>
+            </div>
+          }
         />
         <CardContent className="tweet-content">
           <Typography variant="body1" color="textSecondary" component="p">
             {content}
           </Typography>
           <div className="tweet-footer">
-            
             <div className="date-wrapper">
               <Typography variant="caption" color="textSecondary" component="p">
-                {date}
+                {formattedDate}
               </Typography>
             </div>
           </div>

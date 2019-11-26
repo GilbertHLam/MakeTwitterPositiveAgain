@@ -4,85 +4,47 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
 import useScrollTrigger from "@material-ui/core/useScrollTrigger";
-import Menu from "@material-ui/core/Menu";
-import {
-  ListItemIcon,
-  ListItemText,
-  Slide,
-  Drawer,
-  List,
-  ListItem,
-  Divider
-} from "@material-ui/core";
-import {
-  CalendarToday,
-  ThumbUp,
-  ThumbDown,
-  Inbox,
-  Mail
-} from "@material-ui/icons";
+import "./styles.css";
+import { Slide } from "@material-ui/core";
+import SideDrawer from "../sideDrawer";
+import SortMenu from "../sortMenu";
+import { CalendarToday } from "@material-ui/icons";
+import { useStateValue } from "../../state";
 
-interface Props {
-  /**
-   * Injected by the documentation to work in an iframe.
-   * You won't need it on your project.
-   */
-  window?: () => Window;
-  children?: React.ReactElement;
-}
-
-export default function NavBar(props: Props) {
-  const [auth, setAuth] = React.useState(true);
+export default function NavBar(props: any) {
   const [drawerOpen, setDrawerOpen] = React.useState(false);
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const open = Boolean(anchorEl);
+  const [sortMenuOpen, setSortMenuOpen] = React.useState(false);
+  const ref = React.createRef<any>();
+  const { dispatch } = useStateValue();
 
-  const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
+  const setSortMethod = (sortMethod: string) => {
+    dispatch({
+      type: "setSortMethod",
+      sortMethod: sortMethod
+    })
+  }
+
+  const handleMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setSortMenuOpen(true);
   };
 
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  const sideList = () => (
-    <div
-      role="presentation"
-      onClick={() => setDrawerOpen(false)}
-      onKeyDown={() => setDrawerOpen(false)}
-    >
-      <List>
-        {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>
-              {index % 2 === 0 ? <Inbox /> : <Mail />}
-            </ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List>
-      <Divider />
-      <List>
-        {["All mail", "Trash", "Spam"].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>
-              {index % 2 === 0 ? <Inbox /> : <Mail />}
-            </ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List>
-    </div>
+  const sortIcon: any = (
+      <IconButton
+        aria-label="account of current user"
+        aria-controls="menu-appbar"
+        aria-haspopup="true"
+        onClick={handleMenu}
+        color="inherit"
+        ref={ref}
+      >
+        <CalendarToday fontSize="small" />
+      </IconButton>
   );
 
-  const HideOnScroll = (props: Props) => {
-    const { children, window } = props;
-    // Note that you normally won't need to set the window ref as useScrollTrigger
-    // will default to window.
-    // This is only being set here because the demo is in an iframe.
-    const trigger = useScrollTrigger({ target: window ? window() : undefined });
+  const HideOnScroll = (props: any) => {
+    const { children } = props;
+    const trigger = useScrollTrigger();
     return (
       <Slide appear={false} direction="down" in={!trigger}>
         {children}
@@ -92,14 +54,7 @@ export default function NavBar(props: Props) {
 
   return (
     <>
-      <Drawer
-        open={drawerOpen}
-        onClose={e => {
-          setDrawerOpen(false);
-        }}
-      >
-        {sideList()}
-      </Drawer>
+      <SideDrawer drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} />
       <HideOnScroll {...props}>
         <AppBar>
           <Toolbar>
@@ -115,54 +70,13 @@ export default function NavBar(props: Props) {
               <MenuIcon />
             </IconButton>
             <Typography variant="h5">{`Your Tweets`}</Typography>
-            {auth && (
-              <div>
-                <IconButton
-                  aria-label="account of current user"
-                  aria-controls="menu-appbar"
-                  aria-haspopup="true"
-                  onClick={handleMenu}
-                  color="inherit"
-                >
-                  <CalendarToday fontSize="small" />
-                </IconButton>
-                <Menu
-                  id="menu-appbar"
-                  anchorEl={anchorEl}
-                  anchorOrigin={{
-                    vertical: "top",
-                    horizontal: "right"
-                  }}
-                  keepMounted
-                  transformOrigin={{
-                    vertical: "top",
-                    horizontal: "right"
-                  }}
-                  open={open}
-                  onClose={handleClose}
-                >
-                  <h3>{`Sort By: `}</h3>
-                  <MenuItem>
-                    <ListItemIcon>
-                      <CalendarToday fontSize="small" />
-                    </ListItemIcon>
-                    <ListItemText primary="Most Recent" />
-                  </MenuItem>
-                  <MenuItem>
-                    <ListItemIcon>
-                      <ThumbUp fontSize="small" />
-                    </ListItemIcon>
-                    <ListItemText primary="Most Positive" />
-                  </MenuItem>
-                  <MenuItem>
-                    <ListItemIcon>
-                      <ThumbDown fontSize="small" />
-                    </ListItemIcon>
-                    <ListItemText primary="Most Negative" />
-                  </MenuItem>
-                </Menu>
-              </div>
-            )}
+            {sortIcon}
+            <SortMenu
+              iconButtonRef={sortIcon.ref}
+              open={sortMenuOpen}
+              setSortMenuOpen={setSortMenuOpen}
+              setSortMethod={setSortMethod}
+            />
           </Toolbar>
         </AppBar>
       </HideOnScroll>
