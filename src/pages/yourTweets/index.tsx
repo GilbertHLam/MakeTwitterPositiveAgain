@@ -7,6 +7,7 @@ import { getRecentTweets } from "../../utils/apiCalls";
 import theme from "../../theme";
 import { TweetType } from "../../types/types";
 import { CircularProgress } from "@material-ui/core";
+import { useStateValue } from "../../state";
 
 interface YourTweetsProps extends React.HTMLProps<HTMLDivElement> {
   screen_name: string;
@@ -17,6 +18,7 @@ interface YourTweetsProps extends React.HTMLProps<HTMLDivElement> {
 const YourTweets: React.FC<YourTweetsProps> = (props: YourTweetsProps) => {
   const [tweets, setTweets] = useState([{} as TweetType]);
   const [isLoading, setIsLoading] = useState(true);
+  const { state } = useStateValue();
   useEffect(() => {
     const cache = localStorage.getItem("recentTweets");
     if (cache == null) {
@@ -42,11 +44,33 @@ const YourTweets: React.FC<YourTweetsProps> = (props: YourTweetsProps) => {
     }
   }, []);
 
+  const sortTweets = () => {
+    if(state.sortMethod === "recent") {
+      return tweets;
+    } else if (state.sortMethod === "positive") {
+      return tweets.sort((a: TweetType, b: TweetType):number => {
+        if(a.score > b.score) {
+          return 1;
+        }
+        return -1;
+      });
+    } else if (state.sortMethod === "negative") {
+      return tweets.sort((a: TweetType, b: TweetType):number => {
+        if(a.score < b.score) {
+          return 1;
+        }
+        return -1;
+      });
+    } else {
+      return tweets;
+    }
+  }
+
   const tweetsDiv = (
     <div>
-      {tweets.map(tweet => (
+      {sortTweets().map(tweet => (
         <Tweet
-          score={Math.floor(Math.random() * 101)}
+          score={tweet.score}
           content={tweet.text}
           date={tweet.created_at}
           favorites={tweet.favorite_count}

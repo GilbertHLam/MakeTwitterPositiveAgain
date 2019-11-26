@@ -15,7 +15,8 @@ export const initialState: StateType = {
     oauth_token_secret: "",
     screen_name: "",
     user_id: ""
-  }
+  },
+  sortMethod: "recent"
 };
 
 export const StateContext = createContext<{
@@ -29,11 +30,16 @@ export const StateContext = createContext<{
 export const reducer = (prevState: StateType, action: Action): StateType => {
   switch (action.type) {
     case "setCredentials":
-      console.log("here ", action.credentials);
       return {
         ...prevState,
         credentials: action.credentials
       };
+    
+    case "setSortMethod":
+      return {
+        ...prevState,
+        sortMethod: action.sortMethod
+      }
 
     default:
       return prevState;

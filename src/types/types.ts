@@ -3,6 +3,7 @@ import { string } from "prop-types";
 
 export interface StateType {
   credentials: credentialsType;
+  sortMethod: string;
 }
 
 export type StateReducerType = (
@@ -25,6 +26,7 @@ export type StateProviderType = (
 export type Action =
   | { type: "request" }
   | { type: "setCredentials"; credentials: credentialsType }
+  | { type: "setSortMethod"; sortMethod: string }
   | { type: "failure"; error: string };
 
 export interface credentialsType {
@@ -35,6 +37,7 @@ export interface credentialsType {
 }
 
 export interface TweetType {
+  score: number;
   created_at: string;
   id: string;
   text: string;
