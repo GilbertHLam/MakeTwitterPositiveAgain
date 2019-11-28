@@ -98,7 +98,6 @@ export default createMuiTheme({
         backgroundColor: "#16202c",
         top: "50px !important",
         border: "solid 2px #ffffff"
-
       }
     },
     MuiTypography: {

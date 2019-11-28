@@ -20,8 +20,11 @@ const YourTweets: React.FC<YourTweetsProps> = (props: YourTweetsProps) => {
   const [isLoading, setIsLoading] = useState(true);
   const { state } = useStateValue();
   useEffect(() => {
-    const cache = localStorage.getItem("recentTweets");
-    if (cache == null) {
+    const cachedAt = localStorage.getItem("cachedAt");
+    const cacheDay = cachedAt ? new Date(cachedAt) : new Date(1574800000000);// - new Date())/(1000 * 60 * 60) > 24 : false;
+    const today = new Date();
+    const shouldFlush = Math.abs(cacheDay.getTime() - today.getTime())/(1000*60*60) > 24;
+    if (shouldFlush) {
       getRecentTweets(
         props.oauth_token,
         props.oauth_token_secret,
@@ -33,13 +36,15 @@ const YourTweets: React.FC<YourTweetsProps> = (props: YourTweetsProps) => {
         .then((data: any) => {
           setTweets(data);
           localStorage.setItem("recentTweets", JSON.stringify(data));
+          localStorage.setItem("cachedAt", new Date().toString());
           setIsLoading(false);
         })
         .catch(err => {
           console.log(err);
         });
     } else {
-      setTweets(JSON.parse(cache));
+      const cache = localStorage.getItem("recentTweets");
+      setTweets(JSON.parse(cache!));
       setIsLoading(false);
     }
   }, []);
