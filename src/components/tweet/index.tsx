@@ -13,7 +13,6 @@ import {
 import {
   Delete,
   Favorite,
-  ChatBubbleOutline,
   Repeat
 } from "@material-ui/icons";
 import ConfirmationDialog from "../confirmationDialog";

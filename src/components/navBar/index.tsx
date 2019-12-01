@@ -31,9 +31,9 @@ export default function NavBar(props: any) {
   };
 
   const sortIconSection = () => {
-    if (state.sortMethod == "recent") {
+    if (state.sortMethod === "recent") {
       return <CalendarToday fontSize="small" />;
-    } else if (state.sortMethod == "positive") {
+    } else if (state.sortMethod === "positive") {
       return <ThumbUp fontSize="small" />;
     } else {
       return <ThumbDown fontSize="small" />;

@@ -33,7 +33,7 @@ const LoginRedirect: React.FC = () => {
           console.log(err);
         });
     }
-  }, []);
+  });
 
   return (
     <>

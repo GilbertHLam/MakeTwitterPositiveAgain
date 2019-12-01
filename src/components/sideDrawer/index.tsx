@@ -98,7 +98,7 @@ export default function SideDrawer(props: SideDrawerProps) {
             <ListItemIcon>
               <ExitToApp />
             </ListItemIcon>
-            <ListItemText primary={"Log Out"} />
+            <ListItemText primary={"Log Out"} onClick={e => onLogout}/>
           </ListItem>
         </List>
       </div>

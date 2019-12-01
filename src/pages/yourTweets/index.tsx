@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import "./styles.css";
 import { ThemeProvider } from "@material-ui/core/styles";
 import Tweet from "../../components/tweet";
-import NavBar from "../../components/navBar";
 import { getRecentTweets } from "../../utils/apiCalls";
 import theme from "../../theme";
 import { TweetType } from "../../types/types";
@@ -21,9 +20,10 @@ const YourTweets: React.FC<YourTweetsProps> = (props: YourTweetsProps) => {
   const { state } = useStateValue();
   useEffect(() => {
     const cachedAt = localStorage.getItem("cachedAt");
-    const cacheDay = cachedAt ? new Date(cachedAt) : new Date(1574800000000);// - new Date())/(1000 * 60 * 60) > 24 : false;
+    const cacheDay = cachedAt ? new Date(cachedAt) : new Date(1574800000000); // - new Date())/(1000 * 60 * 60) > 24 : false;
     const today = new Date();
-    const shouldFlush = Math.abs(cacheDay.getTime() - today.getTime())/(1000*60*60) > 24;
+    const shouldFlush =
+      Math.abs(cacheDay.getTime() - today.getTime()) / (1000 * 60 * 60) > 24;
     if (shouldFlush) {
       getRecentTweets(
         props.oauth_token,
@@ -47,7 +47,7 @@ const YourTweets: React.FC<YourTweetsProps> = (props: YourTweetsProps) => {
       setTweets(JSON.parse(cache!));
       setIsLoading(false);
     }
-  }, []);
+  }, [props.oauth_token, props.oauth_token_secret, props.screen_name]);
 
   const sortTweets = () => {
     if (state.sortMethod === "recent") {

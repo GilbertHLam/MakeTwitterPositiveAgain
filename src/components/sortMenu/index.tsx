@@ -1,5 +1,4 @@
 import React from "react";
-import IconButton from "@material-ui/core/IconButton";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import "./styles.css";
@@ -13,7 +12,7 @@ interface SortMenuProps {
   setSortMethod: (selection: string) => void;
 }
 export default function SortMenu(props: SortMenuProps) {
-  const { iconButtonRef, open, setSortMenuOpen, setSortMethod } = props;
+  const { open, setSortMenuOpen, setSortMethod } = props;
 
   const handleClose = () => {
     setSortMenuOpen(false);
