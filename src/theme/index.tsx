@@ -33,8 +33,8 @@ export default createMuiTheme({
     },
     MuiDialogActions: {
       root: {
-        padding: "0 16px",
-      },
+        padding: "0 16px"
+      }
     },
     MuiListItemIcon: {
       root: {
@@ -109,6 +109,9 @@ export default createMuiTheme({
       colorTextSecondary: {
         color: "white",
         "line-height": "1"
+      },
+      body1: {
+        "font-weight": "none"
       },
       h5: {
         "font-weight": "700",

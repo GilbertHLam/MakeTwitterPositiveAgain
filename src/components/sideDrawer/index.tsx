@@ -29,13 +29,11 @@ export default function SideDrawer(props: SideDrawerProps) {
   const onPageSelect = (page: string) => {
     dispatch({
       type: "setNavigation",
-      navigation: page,
+      navigation: page
     });
   };
 
-  const onLogout = () => {
-
-  };
+  const onLogout = () => {};
 
   const sideList = () => (
     <div
@@ -46,21 +44,39 @@ export default function SideDrawer(props: SideDrawerProps) {
       <List>
         <ListItem button>
           <ListItemIcon>
-            <ChatBubble />
+            <ChatBubble
+              className={state.navigation === "Your Tweets" ? "current" : ""}
+            />
           </ListItemIcon>
-          <ListItemText primary={"Your Tweets"} onClick={(e)=>onPageSelect("Your Tweets")}/>
+          <ListItemText
+            primary={"Your Tweets"}
+            onClick={e => onPageSelect("Your Tweets")}
+            className={state.navigation === "Your Tweets" ? "current" : ""}
+          />
         </ListItem>
         <ListItem button>
           <ListItemIcon>
-            <Timeline />
+            <Timeline
+              className={state.navigation === "Timeline" ? "current" : ""}
+            />
           </ListItemIcon>
-          <ListItemText primary={"Timeline"} onClick={(e)=>onPageSelect("Timeline")}/>
+          <ListItemText
+            primary={"Timeline"}
+            onClick={e => onPageSelect("Timeline")}
+            className={state.navigation === "Timeline" ? "current" : ""}
+          />
         </ListItem>
         <ListItem button>
           <ListItemIcon>
-            <TrendingUp />
+            <TrendingUp
+              className={state.navigation === "Trends" ? "current" : ""}
+            />
           </ListItemIcon>
-          <ListItemText primary={"Trends"} onClick={(e)=>onPageSelect("Trends")}/>
+          <ListItemText
+            primary={"Trends"}
+            onClick={e => onPageSelect("Trends")}
+            className={state.navigation === "Trends" ? "current" : ""}
+          />
         </ListItem>
       </List>
       <Divider />
@@ -68,9 +84,15 @@ export default function SideDrawer(props: SideDrawerProps) {
         <List>
           <ListItem button>
             <ListItemIcon>
-              <Settings />
+              <Settings
+                className={state.navigation === "Preferences" ? "current" : ""}
+              />
             </ListItemIcon>
-            <ListItemText primary={"Preferences"} onClick={(e)=>onPageSelect("Preferences")}/>
+            <ListItemText
+              primary={"Preferences"}
+              onClick={e => onPageSelect("Preferences")}
+              className={state.navigation === "Preferences" ? "current" : ""}
+            />
           </ListItem>
           <ListItem button>
             <ListItemIcon>
@@ -85,7 +107,7 @@ export default function SideDrawer(props: SideDrawerProps) {
 
   return (
     <>
-      <Drawer open={drawerOpen} onClose={()=>setDrawerOpen(false)}>
+      <Drawer open={drawerOpen} onClose={() => setDrawerOpen(false)}>
         {sideList()}
       </Drawer>
     </>
