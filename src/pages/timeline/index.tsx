@@ -9,13 +9,13 @@ import { TweetType } from "../../types/types";
 import { CircularProgress } from "@material-ui/core";
 import { useStateValue } from "../../state";
 import FlipMove from "react-flip-move";
-interface YourTweetsProps extends React.HTMLProps<HTMLDivElement> {
+interface TimelineProps extends React.HTMLProps<HTMLDivElement> {
   screen_name: string;
   oauth_token: string;
   oauth_token_secret: string;
 }
 
-const YourTweets: React.FC<YourTweetsProps> = (props: YourTweetsProps) => {
+const Timeline: React.FC<TimelineProps> = (props: TimelineProps) => {
   const [tweets, setTweets] = useState([{} as TweetType]);
   const [isLoading, setIsLoading] = useState(true);
   const { state } = useStateValue();
@@ -100,10 +100,10 @@ const YourTweets: React.FC<YourTweetsProps> = (props: YourTweetsProps) => {
       {isLoading ? (
         <CircularProgress className="spinner" />
       ) : (
-        <div className="your-tweets">{tweetsDiv}</div>
+        <div className="timeline">{tweetsDiv}</div>
       )}
     </ThemeProvider>
   );
 };
 
-export default YourTweets;
+export default Timeline;

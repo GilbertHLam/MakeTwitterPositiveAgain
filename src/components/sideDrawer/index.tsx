@@ -15,6 +15,7 @@ import {
   Timeline,
   TrendingUp
 } from "@material-ui/icons";
+import { useStateValue } from "../../state";
 
 interface SideDrawerProps {
   drawerOpen: boolean;
@@ -23,6 +24,18 @@ interface SideDrawerProps {
 
 export default function SideDrawer(props: SideDrawerProps) {
   const { drawerOpen, setDrawerOpen } = props;
+  const { state, dispatch } = useStateValue();
+
+  const onPageSelect = (page: string) => {
+    dispatch({
+      type: "setNavigation",
+      navigation: page,
+    });
+  };
+
+  const onLogout = () => {
+
+  };
 
   const sideList = () => (
     <div
@@ -35,19 +48,19 @@ export default function SideDrawer(props: SideDrawerProps) {
           <ListItemIcon>
             <ChatBubble />
           </ListItemIcon>
-          <ListItemText primary={"Your Tweets"} />
+          <ListItemText primary={"Your Tweets"} onClick={(e)=>onPageSelect("Your Tweets")}/>
         </ListItem>
         <ListItem button>
           <ListItemIcon>
             <Timeline />
           </ListItemIcon>
-          <ListItemText primary={"Timeline"} />
+          <ListItemText primary={"Timeline"} onClick={(e)=>onPageSelect("Timeline")}/>
         </ListItem>
         <ListItem button>
           <ListItemIcon>
             <TrendingUp />
           </ListItemIcon>
-          <ListItemText primary={"Trends"} />
+          <ListItemText primary={"Trends"} onClick={(e)=>onPageSelect("Trends")}/>
         </ListItem>
       </List>
       <Divider />
@@ -57,7 +70,7 @@ export default function SideDrawer(props: SideDrawerProps) {
             <ListItemIcon>
               <Settings />
             </ListItemIcon>
-            <ListItemText primary={"Preferences"} />
+            <ListItemText primary={"Preferences"} onClick={(e)=>onPageSelect("Preferences")}/>
           </ListItem>
           <ListItem button>
             <ListItemIcon>

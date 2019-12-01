@@ -80,7 +80,7 @@ export default function NavBar(props: any) {
             >
               <MenuIcon />
             </IconButton>
-            <Typography variant="h5">{`Your Tweets`}</Typography>
+            <Typography variant="h5">{state.navigation}</Typography>
             {sortIcon}
             <SortMenu
               iconButtonRef={sortIcon.ref}

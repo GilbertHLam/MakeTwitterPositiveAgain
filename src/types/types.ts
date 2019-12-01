@@ -4,6 +4,7 @@ import { string } from "prop-types";
 export interface StateType {
   credentials: credentialsType;
   sortMethod: string;
+  navigation: string;
 }
 
 export type StateReducerType = (
@@ -27,6 +28,7 @@ export type Action =
   | { type: "request" }
   | { type: "setCredentials"; credentials: credentialsType }
   | { type: "setSortMethod"; sortMethod: string }
+  | { type: "setNavigation"; navigation: string }
   | { type: "failure"; error: string };
 
 export interface credentialsType {

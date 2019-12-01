@@ -8,7 +8,8 @@ export const initialState: StateType = {
     screen_name: "",
     user_id: ""
   },
-  sortMethod: "recent"
+  sortMethod: "recent",
+  navigation: "Your Tweets"
 };
 
 export const StateContext = createContext<{
@@ -31,6 +32,12 @@ export const reducer = (prevState: StateType, action: Action): StateType => {
       return {
         ...prevState,
         sortMethod: action.sortMethod
+      };
+
+      case "setNavigation":
+      return {
+        ...prevState,
+        navigation: action.navigation
       };
 
     default:
