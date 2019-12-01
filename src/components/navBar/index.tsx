@@ -9,14 +9,14 @@ import "./styles.css";
 import { Slide } from "@material-ui/core";
 import SideDrawer from "../sideDrawer";
 import SortMenu from "../sortMenu";
-import { CalendarToday } from "@material-ui/icons";
+import { CalendarToday, ThumbUp, ThumbDown } from "@material-ui/icons";
 import { useStateValue } from "../../state";
 
 export default function NavBar(props: any) {
   const [drawerOpen, setDrawerOpen] = React.useState(false);
   const [sortMenuOpen, setSortMenuOpen] = React.useState(false);
   const ref = React.createRef<any>();
-  const { dispatch } = useStateValue();
+  const { state, dispatch } = useStateValue();
 
   const setSortMethod = (sortMethod: string) => {
     dispatch({
@@ -30,6 +30,16 @@ export default function NavBar(props: any) {
     setSortMenuOpen(true);
   };
 
+  const sortIconSection = () => {
+    if (state.sortMethod == "recent") {
+      return <CalendarToday fontSize="small" />;
+    } else if (state.sortMethod == "positive") {
+      return <ThumbUp fontSize="small" />;
+    } else {
+      return <ThumbDown fontSize="small" />;
+    }
+  };
+
   const sortIcon: any = (
     <IconButton
       aria-label="account of current user"
@@ -39,7 +49,7 @@ export default function NavBar(props: any) {
       color="inherit"
       ref={ref}
     >
-      <CalendarToday fontSize="small" />
+      {sortIconSection()}
     </IconButton>
   );
 

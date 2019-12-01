@@ -39,6 +39,20 @@ const getRecentTweets = (oauthToken: string,oauthTokenSecret: string,screenName:
     });
 }
 
+const deleteTweet = (oauthToken: string,oauthTokenSecret: string,tweetId: string) => {
+  return fetch(apiBaseUrl + "deleteTweet", {
+      method: "POST",
+      headers: {
+        Origin: "https://twitter.gilbertlam.me"
+      },
+      body: JSON.stringify({
+        oauth_token_secret: oauthTokenSecret,
+        oauth_token: oauthToken,
+        tweetId: tweetId
+      }),
+    });
+}
+
 const getAccessToken = (oauthVerifier: string , oauthToken: string) => {
   return fetch(apiBaseUrl + "getAccessToken", {
         method: "POST",
@@ -56,5 +70,6 @@ export {
     signIn,
     getProfile,
     getAccessToken,
-    getRecentTweets
+    getRecentTweets,
+    deleteTweet
 };

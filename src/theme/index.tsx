@@ -31,6 +31,11 @@ export default createMuiTheme({
         }
       }
     },
+    MuiDialogActions: {
+      root: {
+        padding: "0 16px",
+      },
+    },
     MuiListItemIcon: {
       root: {
         color: "white"

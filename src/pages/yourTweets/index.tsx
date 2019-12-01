@@ -88,6 +88,7 @@ const YourTweets: React.FC<YourTweetsProps> = (props: YourTweetsProps) => {
             date={tweet.created_at}
             favorites={tweet.favorite_count}
             retweets={tweet.retweet_count}
+            tweetId={tweet.id}
           />
         </div>
       ))}
