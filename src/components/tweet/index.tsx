@@ -8,13 +8,9 @@ import {
   CardContent,
   Typography,
   Badge,
-  Tooltip
+  Tooltip,
 } from "@material-ui/core";
-import {
-  Delete,
-  Favorite,
-  Repeat
-} from "@material-ui/icons";
+import { Delete, Favorite, Repeat } from "@material-ui/icons";
 import ConfirmationDialog from "../confirmationDialog";
 
 interface TweetProps extends React.HTMLProps<HTMLDivElement> {
@@ -25,6 +21,9 @@ interface TweetProps extends React.HTMLProps<HTMLDivElement> {
   favorites: number;
   retweets: number;
   tweetId: string;
+  forceUpdate?: () => void;
+  setSnackBarVariant?: (variant: string) => void;
+  setShowSnackBar?: (open: boolean)=> void;
 }
 
 const formatDate = (date: Date) => {
@@ -58,12 +57,14 @@ const Tweet: React.FC<TweetProps> = (props: TweetProps) => {
     date,
     favorites,
     retweets,
-    tweetId
+    tweetId,
+    forceUpdate,
   } = props;
 
   let color;
 
   const [showConfirmation, setShowConfirmation] = useState(false);
+
 
   const formattedDate = formatDate(new Date(date));
 
@@ -79,8 +80,19 @@ const Tweet: React.FC<TweetProps> = (props: TweetProps) => {
     setShowConfirmation(true);
   };
 
-  const onCloseConfirmation = () => {
+  const onCloseConfirmation = (e: any, success: boolean | null) => {
     setShowConfirmation(false);
+    if(success && props.setShowSnackBar && props.setSnackBarVariant) {
+      props.setSnackBarVariant("success");
+      props.setShowSnackBar(true);
+      forceUpdate ? forceUpdate() : console.log();
+    } else if (success === false && props.setShowSnackBar && props.setSnackBarVariant) {
+      props.setSnackBarVariant("error");
+      props.setShowSnackBar(true);
+    } else if(props.setShowSnackBar){
+      props.setShowSnackBar(false);
+    }
+    
   };
 
   return (
@@ -99,9 +111,10 @@ const Tweet: React.FC<TweetProps> = (props: TweetProps) => {
           avatar={
             <Avatar
               style={{
-                backgroundColor: color,
+                backgroundColor: "#00000000",
                 fontFamily: "Helvetica Neue, Roboto",
-                fontWeight: 700
+                fontWeight: 700,
+                border: `3px solid ${color}`
               }}
               aria-label={score.toString()}
             >

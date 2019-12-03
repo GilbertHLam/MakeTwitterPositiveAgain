@@ -88,7 +88,7 @@ const Timeline: React.FC<TimelineProps> = (props: TimelineProps) => {
             date={tweet.created_at}
             favorites={tweet.favorite_count}
             retweets={tweet.retweet_count}
-            tweetId={tweet.id}
+            tweetId={tweet.id_str}
           />
         </div>
       ))}

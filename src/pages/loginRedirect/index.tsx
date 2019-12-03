@@ -20,6 +20,7 @@ const LoginRedirect: React.FC = () => {
           return response.json();
         })
         .then((data: any) => {
+          console.log(data);
           dispatch({
             type: "setCredentials",
             credentials: data
@@ -33,7 +34,7 @@ const LoginRedirect: React.FC = () => {
           console.log(err);
         });
     }
-  });
+  }, [token]);
 
   return (
     <>
@@ -41,7 +42,6 @@ const LoginRedirect: React.FC = () => {
         <Redirect
           to={{
             pathname: "/dashboard"
-            //state: { ...userKeys }
           }}
         />
       ) : (

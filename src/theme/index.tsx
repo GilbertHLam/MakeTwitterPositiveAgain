@@ -78,6 +78,11 @@ export default createMuiTheme({
         border: "1px solid #37444d"
       }
     },
+    MuiBackdrop: {
+      root: {
+        backdropFilter: "blur(2px)",
+      }
+    },
     MuiPaper: {
       root: {
         "background-color": "#16202c",

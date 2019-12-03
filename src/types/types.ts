@@ -41,7 +41,8 @@ export interface credentialsType {
 export interface TweetType {
   score: number;
   created_at: string;
-  id: string;
+  id: number;
+  id_str: string;
   text: string;
   truncated: string;
   entities: Array<object>;

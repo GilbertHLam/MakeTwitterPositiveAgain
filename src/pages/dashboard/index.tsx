@@ -26,16 +26,12 @@ const Dashboard: React.FC<DashboardProps> = (props: { location: any }) => {
     ? state.credentials.screen_name
     : localStorage.getItem("screen_name");
 
+  console.log("state", state);
+  console.log("oauth_token", oauth_token);
   if (oauth_token && oauth_token_secret && screen_name) {
     const pageToRender = () => {
       if (state.navigation === "Your Tweets") {
-        return (
-          <YourTweets
-            oauth_token={oauth_token}
-            oauth_token_secret={oauth_token_secret}
-            screen_name={screen_name}
-          />
-        );
+        return <YourTweets />;
       } else if (state.navigation === "Timeline") {
         return (
           <Timeline
@@ -70,15 +66,15 @@ const Dashboard: React.FC<DashboardProps> = (props: { location: any }) => {
         <div className="dashboard">{pageToRender()}</div>
       </ThemeProvider>
     );
+  } else {
+    return (
+      <Redirect
+        to={{
+          pathname: "/"
+        }}
+      />
+    );
   }
-
-  return (
-    <Redirect
-      to={{
-        pathname: "/"
-      }}
-    />
-  );
 };
 
 export default Dashboard;

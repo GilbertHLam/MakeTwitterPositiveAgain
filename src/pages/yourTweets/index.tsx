@@ -7,28 +7,29 @@ import theme from "../../theme";
 import { TweetType } from "../../types/types";
 import { CircularProgress } from "@material-ui/core";
 import { useStateValue } from "../../state";
+import CustomSnackbar from "../../components/customSnackBar";
+
 import FlipMove from "react-flip-move";
-interface YourTweetsProps extends React.HTMLProps<HTMLDivElement> {
-  screen_name: string;
-  oauth_token: string;
-  oauth_token_secret: string;
-}
+interface YourTweetsProps extends React.HTMLProps<HTMLDivElement> {}
+
 
 const YourTweets: React.FC<YourTweetsProps> = (props: YourTweetsProps) => {
   const [tweets, setTweets] = useState([{} as TweetType]);
   const [isLoading, setIsLoading] = useState(true);
+  const [showSnackbar, setShowSnackBar] = useState(false);
+  const [snackBarVariant, setSnackBarVariant] = useState("");
   const { state } = useStateValue();
   useEffect(() => {
     const cachedAt = localStorage.getItem("cachedAt");
     const cacheDay = cachedAt ? new Date(cachedAt) : new Date(1574800000000); // - new Date())/(1000 * 60 * 60) > 24 : false;
     const today = new Date();
     const shouldFlush =
-      Math.abs(cacheDay.getTime() - today.getTime()) / (1000 * 60 * 60) > 24;
+      Math.abs(cacheDay.getTime() - today.getTime()) / (1000 * 60 * 60) > 1;
     if (shouldFlush) {
       getRecentTweets(
-        props.oauth_token,
-        props.oauth_token_secret,
-        props.screen_name
+        state.credentials.oauth_token,
+        state.credentials.oauth_token_secret,
+        state.credentials.screen_name
       )
         .then(response => {
           return response.json();
@@ -47,7 +48,7 @@ const YourTweets: React.FC<YourTweetsProps> = (props: YourTweetsProps) => {
       setTweets(JSON.parse(cache!));
       setIsLoading(false);
     }
-  }, [props.oauth_token, props.oauth_token_secret, props.screen_name]);
+  }, [showSnackbar]);
 
   const sortTweets = () => {
     if (state.sortMethod === "recent") {
@@ -88,7 +89,9 @@ const YourTweets: React.FC<YourTweetsProps> = (props: YourTweetsProps) => {
             date={tweet.created_at}
             favorites={tweet.favorite_count}
             retweets={tweet.retweet_count}
-            tweetId={tweet.id}
+            tweetId={tweet.id_str}
+            setSnackBarVariant={setSnackBarVariant}
+            setShowSnackBar={setShowSnackBar}
           />
         </div>
       ))}
@@ -100,7 +103,14 @@ const YourTweets: React.FC<YourTweetsProps> = (props: YourTweetsProps) => {
       {isLoading ? (
         <CircularProgress className="spinner" />
       ) : (
-        <div className="your-tweets">{tweetsDiv}</div>
+        <>
+          <div className="your-tweets">{tweetsDiv}</div>
+          <CustomSnackbar
+            open={showSnackbar}
+            variant={snackBarVariant}
+            setShowSnackbar={setShowSnackBar}
+          />
+        </>
       )}
     </ThemeProvider>
   );

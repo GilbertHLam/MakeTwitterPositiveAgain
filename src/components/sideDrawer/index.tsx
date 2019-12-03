@@ -33,7 +33,19 @@ export default function SideDrawer(props: SideDrawerProps) {
     });
   };
 
-  const onLogout = () => {};
+  const onLogout = () => {
+    dispatch({
+      type: "setCredentials",
+      credentials: {
+        oauth_token: "",
+        oauth_token_secret: "",
+        screen_name: "",
+        user_id: "",
+      }
+    });
+    localStorage.clear();
+    window.location.replace(window.location.href.split("/")[0]);
+  };
 
   const sideList = () => (
     <div
@@ -98,7 +110,7 @@ export default function SideDrawer(props: SideDrawerProps) {
             <ListItemIcon>
               <ExitToApp />
             </ListItemIcon>
-            <ListItemText primary={"Log Out"} onClick={e => onLogout}/>
+            <ListItemText primary={"Log Out"} onClick={e => onLogout()}/>
           </ListItem>
         </List>
       </div>

@@ -39,7 +39,8 @@ const getRecentTweets = (oauthToken: string,oauthTokenSecret: string,screenName:
     });
 }
 
-const deleteTweet = (oauthToken: string,oauthTokenSecret: string,tweetId: string) => {
+const deleteTweet = (oauthToken: string, oauthTokenSecret: string, tweetId: string) => {
+  console.log( oauthTokenSecret);
   return fetch(apiBaseUrl + "deleteTweet", {
       method: "POST",
       headers: {

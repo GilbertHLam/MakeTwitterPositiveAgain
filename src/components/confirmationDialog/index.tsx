@@ -1,8 +1,6 @@
 import React from "react";
 import "./styles.css";
-import {
-  deleteTweet
-} from "../../utils/apiCalls";
+import { deleteTweet } from "../../utils/apiCalls";
 import {
   Dialog,
   DialogTitle,
@@ -12,10 +10,11 @@ import {
   Button
 } from "@material-ui/core";
 import { useStateValue } from "../../state";
+import { TweetType } from "../../types/types";
 
 interface ConfirmationDialogProps {
   open: boolean;
-  handleClose: (e: any) => void;
+  handleClose: (e: any, success: boolean | null) => void;
   tweetId: string;
 }
 
@@ -23,21 +22,30 @@ const ConfirmationDialog = (props: ConfirmationDialogProps) => {
   const { state } = useStateValue();
 
   const onDelete = (e: any) => {
-    deleteTweet(state.credentials.oauth_token, state.credentials.oauth_token_secret, props.tweetId)
-    .then(response => {
-      console.log(response);
-      props.handleClose(e);
-    })
-    .catch(error => {
-      console.log(error);
-    })
+    deleteTweet(
+      localStorage.getItem("oauth_token")!,
+      localStorage.getItem("oauth_token_secret")!,
+      props.tweetId
+    )
+      .then(response => {
+        console.log(response);
+        if (response.status === 200) {
+          localStorage.setItem("recentTweets", JSON.stringify(JSON.parse(localStorage.getItem("recentTweets")!).filter((tweet: any) => tweet.id_str !== props.tweetId)));
+          props.handleClose(e, true);
+        } else {
+          props.handleClose(e, false);
+        }
+      })
+      .catch(error => {
+        props.handleClose(e, false);
+      });
   };
 
   return (
     <>
       <Dialog
         open={props.open}
-        onClose={props.handleClose}
+        onClose={e => props.handleClose(e, null)}
         aria-labelledby="Delete tweet"
         aria-describedby="alert-dialog-description"
       >
@@ -50,10 +58,18 @@ const ConfirmationDialog = (props: ConfirmationDialogProps) => {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={e => props.handleClose(e)} color="primary" autoFocus>
+          <Button
+            onClick={e => props.handleClose(e, null)}
+            color="primary"
+            autoFocus
+          >
             Cancel
           </Button>
-          <Button onClick={e => onDelete(e)} className="confirm" color="primary">
+          <Button
+            onClick={e => onDelete(e)}
+            className="confirm"
+            color="primary"
+          >
             Confirm
           </Button>
         </DialogActions>

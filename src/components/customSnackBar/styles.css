@@ -1,0 +1,16 @@
+.error {
+    background-color: #d23000 !important;
+}
+
+.success {
+    background-color: rgb(38, 156, 0) !important;
+}
+
+#client-snackbar {
+    display: flex;
+    align-items: center;
+}
+
+.snack-icon {
+    margin-right: 15px;
+}
