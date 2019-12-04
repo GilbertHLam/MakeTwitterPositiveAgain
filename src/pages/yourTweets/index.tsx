@@ -5,13 +5,12 @@ import Tweet from "../../components/tweet";
 import { getRecentTweets } from "../../utils/apiCalls";
 import theme from "../../theme";
 import { TweetType } from "../../types/types";
-import { CircularProgress } from "@material-ui/core";
+import { CircularProgress, Typography } from "@material-ui/core";
 import { useStateValue } from "../../state";
 import CustomSnackbar from "../../components/customSnackBar";
 
 import FlipMove from "react-flip-move";
 interface YourTweetsProps extends React.HTMLProps<HTMLDivElement> {}
-
 
 const YourTweets: React.FC<YourTweetsProps> = (props: YourTweetsProps) => {
   const [tweets, setTweets] = useState([{} as TweetType]);
@@ -101,7 +100,14 @@ const YourTweets: React.FC<YourTweetsProps> = (props: YourTweetsProps) => {
   return (
     <ThemeProvider theme={theme}>
       {isLoading ? (
-        <CircularProgress className="spinner" />
+        <div className="loading-screen-tweets">
+          <div className="loading-message">
+            <CircularProgress className="spinner" />
+            <Typography variant="body1" color="textSecondary" component="p">
+              Analyzing your tweets....
+            </Typography>
+          </div>
+        </div>
       ) : (
         <>
           <div className="your-tweets">{tweetsDiv}</div>

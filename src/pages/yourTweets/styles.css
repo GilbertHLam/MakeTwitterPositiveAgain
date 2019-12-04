@@ -12,3 +12,21 @@ h3 {
     margin: auto;
     text-align: center;
 }
+
+.loading-screen-tweets {
+    display: flex;
+    height: calc(100vh - 56px) ;
+    width: 100%;
+    align-items: center;
+    text-align: center;
+    align-content: center;
+    background-color: #16202c;
+    justify-content: space-around;
+}
+
+.loading-message {
+    height: 20%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}

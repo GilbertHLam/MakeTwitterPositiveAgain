@@ -94,7 +94,7 @@ export default function SideDrawer(props: SideDrawerProps) {
       <Divider />
       <div className="footer">
         <List>
-          <ListItem button>
+          {/* <ListItem button>
             <ListItemIcon>
               <Settings
                 className={state.navigation === "Preferences" ? "current" : ""}
@@ -105,7 +105,7 @@ export default function SideDrawer(props: SideDrawerProps) {
               onClick={e => onPageSelect("Preferences")}
               className={state.navigation === "Preferences" ? "current" : ""}
             />
-          </ListItem>
+          </ListItem> */}
           <ListItem button>
             <ListItemIcon>
               <ExitToApp />
