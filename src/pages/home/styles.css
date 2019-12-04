@@ -1,6 +1,6 @@
 .section {
   width: 50%;
-  height: 90vh;
+  height: 90%;
   display: flex;
 }
 
@@ -28,7 +28,9 @@ h1 {
   flex-direction: row;
   justify-content: space-between;
   width: 100vw;
-  height: 100vh;
+  height: 100%;
+  background-image: linear-gradient(141deg, #16202c 0%, #2a4e7a 95%);
+
 }
 
 h1 span {
@@ -218,6 +220,11 @@ h1 span:nth-child(2) {
   }
 
   .waves {
-    height: 10vh;
+    height: 10%;
+  }
+
+  .icon-button:hover span {
+    width: 100%;
+    margin-left: -50%;
   }
 }

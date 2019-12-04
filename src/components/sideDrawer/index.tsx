@@ -15,6 +15,7 @@ import {
   Timeline,
   TrendingUp
 } from "@material-ui/icons";
+import { useStateValue } from "../../state";
 
 interface SideDrawerProps {
   drawerOpen: boolean;
@@ -23,6 +24,28 @@ interface SideDrawerProps {
 
 export default function SideDrawer(props: SideDrawerProps) {
   const { drawerOpen, setDrawerOpen } = props;
+  const { state, dispatch } = useStateValue();
+
+  const onPageSelect = (page: string) => {
+    dispatch({
+      type: "setNavigation",
+      navigation: page
+    });
+  };
+
+  const onLogout = () => {
+    dispatch({
+      type: "setCredentials",
+      credentials: {
+        oauth_token: "",
+        oauth_token_secret: "",
+        screen_name: "",
+        user_id: "",
+      }
+    });
+    localStorage.clear();
+    window.location.replace(window.location.href.split("/")[0]);
+  };
 
   const sideList = () => (
     <div
@@ -33,37 +56,61 @@ export default function SideDrawer(props: SideDrawerProps) {
       <List>
         <ListItem button>
           <ListItemIcon>
-            <ChatBubble />
+            <ChatBubble
+              className={state.navigation === "Your Tweets" ? "current" : ""}
+            />
           </ListItemIcon>
-          <ListItemText primary={"Your Tweets"} />
+          <ListItemText
+            primary={"Your Tweets"}
+            onClick={e => onPageSelect("Your Tweets")}
+            className={state.navigation === "Your Tweets" ? "current" : ""}
+          />
         </ListItem>
         <ListItem button>
           <ListItemIcon>
-            <Timeline />
+            <Timeline
+              className={state.navigation === "Timeline" ? "current" : ""}
+            />
           </ListItemIcon>
-          <ListItemText primary={"Timeline"} />
+          <ListItemText
+            primary={"Timeline"}
+            onClick={e => onPageSelect("Timeline")}
+            className={state.navigation === "Timeline" ? "current" : ""}
+          />
         </ListItem>
         <ListItem button>
           <ListItemIcon>
-            <TrendingUp />
+            <TrendingUp
+              className={state.navigation === "Trends" ? "current" : ""}
+            />
           </ListItemIcon>
-          <ListItemText primary={"Trends"} />
+          <ListItemText
+            primary={"Trends"}
+            onClick={e => onPageSelect("Trends")}
+            className={state.navigation === "Trends" ? "current" : ""}
+          />
         </ListItem>
       </List>
       <Divider />
       <div className="footer">
         <List>
-          <ListItem button>
+          {/* <ListItem button>
             <ListItemIcon>
-              <Settings />
+              <Settings
+                className={state.navigation === "Preferences" ? "current" : ""}
+              />
             </ListItemIcon>
-            <ListItemText primary={"Preferences"} />
-          </ListItem>
+            <ListItemText
+              primary={"Preferences"}
+              onClick={e => onPageSelect("Preferences")}
+              className={state.navigation === "Preferences" ? "current" : ""}
+            />
+          </ListItem> */}
           <ListItem button>
             <ListItemIcon>
               <ExitToApp />
             </ListItemIcon>
-            <ListItemText primary={"Log Out"} />
+            <ListItemText primary={"Log Out"} onClick={e => onLogout()}/>
           </ListItem>
         </List>
       </div>
@@ -72,7 +119,7 @@ export default function SideDrawer(props: SideDrawerProps) {
 
   return (
     <>
-      <Drawer open={drawerOpen} onClose={()=>setDrawerOpen(false)}>
+      <Drawer open={drawerOpen} onClose={() => setDrawerOpen(false)}>
         {sideList()}
       </Drawer>
     </>

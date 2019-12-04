@@ -31,6 +31,11 @@ export default createMuiTheme({
         }
       }
     },
+    MuiDialogActions: {
+      root: {
+        padding: "0 16px"
+      }
+    },
     MuiListItemIcon: {
       root: {
         color: "white"
@@ -73,6 +78,11 @@ export default createMuiTheme({
         border: "1px solid #37444d"
       }
     },
+    MuiBackdrop: {
+      root: {
+        backdropFilter: "blur(2px)",
+      }
+    },
     MuiPaper: {
       root: {
         "background-color": "#16202c",
@@ -104,6 +114,9 @@ export default createMuiTheme({
       colorTextSecondary: {
         color: "white",
         "line-height": "1"
+      },
+      body1: {
+        "font-weight": "none"
       },
       h5: {
         "font-weight": "700",

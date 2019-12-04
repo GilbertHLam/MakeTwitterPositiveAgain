@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./styles.css";
 import {
   Card,
@@ -8,14 +8,10 @@ import {
   CardContent,
   Typography,
   Badge,
-  Tooltip
+  Tooltip,
 } from "@material-ui/core";
-import {
-  Delete,
-  Favorite,
-  ChatBubbleOutline,
-  Repeat
-} from "@material-ui/icons";
+import { Delete, Favorite, Repeat } from "@material-ui/icons";
+import ConfirmationDialog from "../confirmationDialog";
 
 interface TweetProps extends React.HTMLProps<HTMLDivElement> {
   screen_name?: string;
@@ -24,6 +20,10 @@ interface TweetProps extends React.HTMLProps<HTMLDivElement> {
   date: string;
   favorites: number;
   retweets: number;
+  tweetId: string;
+  forceUpdate?: () => void;
+  setSnackBarVariant?: (variant: string) => void;
+  setShowSnackBar?: (open: boolean)=> void;
 }
 
 const formatDate = (date: Date) => {
@@ -50,9 +50,21 @@ const formatDate = (date: Date) => {
 };
 
 const Tweet: React.FC<TweetProps> = (props: TweetProps) => {
-  const { score, screen_name, content, date, favorites, retweets } = props;
+  const {
+    score,
+    screen_name,
+    content,
+    date,
+    favorites,
+    retweets,
+    tweetId,
+    forceUpdate,
+  } = props;
 
   let color;
+
+  const [showConfirmation, setShowConfirmation] = useState(false);
+
 
   const formattedDate = formatDate(new Date(date));
 
@@ -64,16 +76,45 @@ const Tweet: React.FC<TweetProps> = (props: TweetProps) => {
     color = "#ec2F4B";
   }
 
+  const onClickDelete = () => {
+    setShowConfirmation(true);
+  };
+
+  const onCloseConfirmation = (e: any, success: boolean | null) => {
+    setShowConfirmation(false);
+    if(success && props.setShowSnackBar && props.setSnackBarVariant) {
+      props.setSnackBarVariant("success");
+      props.setShowSnackBar(true);
+      forceUpdate ? forceUpdate() : console.log();
+    } else if (success === false && props.setShowSnackBar && props.setSnackBarVariant) {
+      props.setSnackBarVariant("error");
+      props.setShowSnackBar(true);
+    } else if(props.setShowSnackBar){
+      props.setShowSnackBar(false);
+    }
+    
+  };
+
   return (
     <div className="tweet">
+      {showConfirmation ? (
+        <>
+          <ConfirmationDialog
+            open={showConfirmation}
+            handleClose={onCloseConfirmation}
+            tweetId={tweetId}
+          />
+        </>
+      ) : null}
       <Card>
         <CardHeader
           avatar={
             <Avatar
               style={{
-                backgroundColor: color,
+                backgroundColor: "#00000000",
                 fontFamily: "Helvetica Neue, Roboto",
-                fontWeight: 700
+                fontWeight: 700,
+                border: `3px solid ${color}`
               }}
               aria-label={score.toString()}
             >
@@ -81,7 +122,7 @@ const Tweet: React.FC<TweetProps> = (props: TweetProps) => {
             </Avatar>
           }
           action={
-            <Tooltip title="Delete">
+            <Tooltip title="Delete" onClick={onClickDelete}>
               <IconButton aria-label="delete">
                 <Delete />
               </IconButton>

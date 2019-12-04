@@ -5,30 +5,30 @@ import Tweet from "../../components/tweet";
 import { getRecentTweets } from "../../utils/apiCalls";
 import theme from "../../theme";
 import { TweetType } from "../../types/types";
-import { CircularProgress, Typography } from "@material-ui/core";
+import { CircularProgress } from "@material-ui/core";
 import { useStateValue } from "../../state";
-import CustomSnackbar from "../../components/customSnackBar";
-
 import FlipMove from "react-flip-move";
-interface YourTweetsProps extends React.HTMLProps<HTMLDivElement> {}
+interface TrendsProps extends React.HTMLProps<HTMLDivElement> {
+  screen_name: string;
+  oauth_token: string;
+  oauth_token_secret: string;
+}
 
-const YourTweets: React.FC<YourTweetsProps> = (props: YourTweetsProps) => {
+const Trends: React.FC<TrendsProps> = (props: TrendsProps) => {
   const [tweets, setTweets] = useState([{} as TweetType]);
   const [isLoading, setIsLoading] = useState(true);
-  const [showSnackbar, setShowSnackBar] = useState(false);
-  const [snackBarVariant, setSnackBarVariant] = useState("");
   const { state } = useStateValue();
   useEffect(() => {
     const cachedAt = localStorage.getItem("cachedAt");
     const cacheDay = cachedAt ? new Date(cachedAt) : new Date(1574800000000); // - new Date())/(1000 * 60 * 60) > 24 : false;
     const today = new Date();
     const shouldFlush =
-      Math.abs(cacheDay.getTime() - today.getTime()) / (1000 * 60 * 60) > 1;
+      Math.abs(cacheDay.getTime() - today.getTime()) / (1000 * 60 * 60) > 24;
     if (shouldFlush) {
       getRecentTweets(
-        state.credentials.oauth_token,
-        state.credentials.oauth_token_secret,
-        state.credentials.screen_name
+        props.oauth_token,
+        props.oauth_token_secret,
+        props.screen_name
       )
         .then(response => {
           return response.json();
@@ -47,7 +47,7 @@ const YourTweets: React.FC<YourTweetsProps> = (props: YourTweetsProps) => {
       setTweets(JSON.parse(cache!));
       setIsLoading(false);
     }
-  }, [showSnackbar]);
+  }, [props.oauth_token, props.oauth_token_secret, props.screen_name]);
 
   const sortTweets = () => {
     if (state.sortMethod === "recent") {
@@ -89,8 +89,6 @@ const YourTweets: React.FC<YourTweetsProps> = (props: YourTweetsProps) => {
             favorites={tweet.favorite_count}
             retweets={tweet.retweet_count}
             tweetId={tweet.id_str}
-            setSnackBarVariant={setSnackBarVariant}
-            setShowSnackBar={setShowSnackBar}
           />
         </div>
       ))}
@@ -100,26 +98,12 @@ const YourTweets: React.FC<YourTweetsProps> = (props: YourTweetsProps) => {
   return (
     <ThemeProvider theme={theme}>
       {isLoading ? (
-        <div className="loading-screen-tweets">
-          <div className="loading-message">
-            <CircularProgress className="spinner" />
-            <Typography variant="body1" color="textSecondary" component="p">
-              Analyzing your tweets....
-            </Typography>
-          </div>
-        </div>
+        <CircularProgress className="spinner" />
       ) : (
-        <>
-          <div className="your-tweets">{tweetsDiv}</div>
-          <CustomSnackbar
-            open={showSnackbar}
-            variant={snackBarVariant}
-            setShowSnackbar={setShowSnackBar}
-          />
-        </>
+        <div className="trends">{tweetsDiv}</div>
       )}
     </ThemeProvider>
   );
 };
 
-export default YourTweets;
+export default Trends;
