@@ -30,3 +30,9 @@ h3 {
     flex-direction: column;
     justify-content: space-around;
 }
+
+@media (min-width: 900px) {
+    .your-tweets {
+        width: 50%;
+    }
+}

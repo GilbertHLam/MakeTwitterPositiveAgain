@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import "./styles.css";
 import { ThemeProvider } from "@material-ui/core/styles";
 import Tweet from "../../components/tweet";
-import { getRecentTweets } from "../../utils/apiCalls";
+import { getRecentTweets, getHomeTimeline } from "../../utils/apiCalls";
 import theme from "../../theme";
 import { TweetType } from "../../types/types";
-import { CircularProgress } from "@material-ui/core";
+import { CircularProgress, Typography } from "@material-ui/core";
 import { useStateValue } from "../../state";
 import FlipMove from "react-flip-move";
 interface TimelineProps extends React.HTMLProps<HTMLDivElement> {
@@ -23,19 +23,15 @@ const Timeline: React.FC<TimelineProps> = (props: TimelineProps) => {
     const cacheDay = cachedAt ? new Date(cachedAt) : new Date(1574800000000); // - new Date())/(1000 * 60 * 60) > 24 : false;
     const today = new Date();
     const shouldFlush =
-      Math.abs(cacheDay.getTime() - today.getTime()) / (1000 * 60 * 60) > 24;
-    if (shouldFlush) {
-      getRecentTweets(
-        props.oauth_token,
-        props.oauth_token_secret,
-        props.screen_name
-      )
+      Math.abs(cacheDay.getTime() - today.getTime()) / (1000 * 60 * 60) > 1;
+    if (shouldFlush || localStorage.getItem("homeTimeline") === null) {
+      getHomeTimeline(props.oauth_token, props.oauth_token_secret)
         .then(response => {
           return response.json();
         })
         .then((data: any) => {
           setTweets(data);
-          localStorage.setItem("recentTweets", JSON.stringify(data));
+          localStorage.setItem("homeTimeline", JSON.stringify(data));
           localStorage.setItem("cachedAt", new Date().toString());
           setIsLoading(false);
         })
@@ -43,8 +39,9 @@ const Timeline: React.FC<TimelineProps> = (props: TimelineProps) => {
           console.log(err);
         });
     } else {
-      const cache = localStorage.getItem("recentTweets");
+      const cache = localStorage.getItem("homeTimeline");
       setTweets(JSON.parse(cache!));
+      console.log(JSON.parse(cache!));
       setIsLoading(false);
     }
   }, [props.oauth_token, props.oauth_token_secret, props.screen_name]);
@@ -89,6 +86,9 @@ const Timeline: React.FC<TimelineProps> = (props: TimelineProps) => {
             favorites={tweet.favorite_count}
             retweets={tweet.retweet_count}
             tweetId={tweet.id_str}
+            author={tweet.user ? tweet.user.screen_name : null}
+            authorPicture={tweet.user ? tweet.user.profile_image_url_https : null}
+            showAuthor={true}
           />
         </div>
       ))}
@@ -98,7 +98,14 @@ const Timeline: React.FC<TimelineProps> = (props: TimelineProps) => {
   return (
     <ThemeProvider theme={theme}>
       {isLoading ? (
-        <CircularProgress className="spinner" />
+        <div className="loading-screen-tweets">
+          <div className="loading-message">
+            <CircularProgress className="spinner" />
+            <Typography variant="body1" color="textSecondary" component="p">
+              Analyzing your timeline....
+            </Typography>
+          </div>
+        </div>
       ) : (
         <div className="timeline">{tweetsDiv}</div>
       )}

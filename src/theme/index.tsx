@@ -50,7 +50,12 @@ export default createMuiTheme({
       action: {
         marginRight: 0,
         marginTop: 0
-      }
+      },
+      avatar: {
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "center",
+      },
     },
     MuiBadge: {
       anchorOriginTopRightRectangle: {
