@@ -50,7 +50,7 @@ const YourTweets: React.FC<YourTweetsProps> = (props: YourTweetsProps) => {
   }, [showSnackbar]);
 
   const sortTweets = () => {
-    if (state.sortMethod === "recent") {
+    if (state.sortMethod === "recent" && tweets) {
       return tweets.sort((a: TweetType, b: TweetType): number => {
         const ad = new Date(a.created_at);
         const bd = new Date(b.created_at);
