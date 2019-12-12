@@ -24,6 +24,9 @@ interface TweetProps extends React.HTMLProps<HTMLDivElement> {
   forceUpdate?: () => void;
   setSnackBarVariant?: (variant: string) => void;
   setShowSnackBar?: (open: boolean)=> void;
+  showAuthor?: boolean;
+  author?: string;
+  authorPicture?: string;
 }
 
 const formatDate = (date: Date) => {
@@ -59,6 +62,9 @@ const Tweet: React.FC<TweetProps> = (props: TweetProps) => {
     retweets,
     tweetId,
     forceUpdate,
+    showAuthor,
+    author,
+    authorPicture
   } = props;
 
   let color;
@@ -109,28 +115,42 @@ const Tweet: React.FC<TweetProps> = (props: TweetProps) => {
       <Card>
         <CardHeader
           avatar={
+            <>
             <Avatar
-              style={{
+              style={!showAuthor ? {
                 backgroundColor: "#00000000",
                 fontFamily: "Helvetica Neue, Roboto",
                 fontWeight: 700,
-                border: `3px solid ${color}`
+                border: `3px solid ${color}`,
+              } : {
+                fontFamily: "Helvetica Neue, Roboto",
+                fontWeight: 700,
+                backgroundColor: "#00000000",
+                border: `3px solid ${color}`,
+                //color: color
               }}
               aria-label={score.toString()}
             >
               {score}
             </Avatar>
+            
+            </>
+            
           }
           action={
+            <>
+            {showAuthor ? <Avatar alt={author} src={authorPicture} /> : 
             <Tooltip title="Delete" onClick={onClickDelete}>
               <IconButton aria-label="delete">
                 <Delete />
               </IconButton>
             </Tooltip>
           }
+            </>
+          }
           title={screen_name}
           subheader={
-            <div className="tweet-stats">
+            <div className={`tweet-stats`}>
               <div className="stat">
                 <Badge
                   badgeContent={retweets ? retweets : 0}
@@ -158,6 +178,9 @@ const Tweet: React.FC<TweetProps> = (props: TweetProps) => {
           </Typography>
           <div className="tweet-footer">
             <div className="date-wrapper">
+              {author ? <Typography variant="caption" color="textSecondary" component="p">
+                {`@${author}`}
+              </Typography> : null} 
               <Typography variant="caption" color="textSecondary" component="p">
                 {formattedDate}
               </Typography>

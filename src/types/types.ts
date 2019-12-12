@@ -62,4 +62,5 @@ export interface TweetType {
   favorite_count: number;
   possibly_sensitive: string;
   lang: string;
+  user: any;
 }
